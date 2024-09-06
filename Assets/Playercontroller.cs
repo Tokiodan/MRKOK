@@ -12,7 +12,7 @@ public class Playercontroller : MonoBehaviour
     public float speed;
     public float sensitivity;
     private Rigidbody rb;
-    public Transform orientation;
+    // public Transform orientation;
     private Vector3 moveDirection;
     private float xRotation;
     private float yRotation;
