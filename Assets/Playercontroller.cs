@@ -37,7 +37,7 @@ public class Playercontroller : MonoBehaviour
         yRotation = Mathf.Clamp(yRotation, -90f, 90f);
 
 
-        c.rotation = Quaternion.Euler(yRotation, xRotation, 0);
+        c.rotation = Quaternion.Euler(yRotation, 0, 0);
         transform.rotation = Quaternion.Euler(0, -xRotation, 0);
 
         //player movement
