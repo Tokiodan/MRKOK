@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/DanisScene.unity
+    guid: 3dd7e8798bb55874d900f3bfcca0c9af
+  - enabled: 1
+    path: Assets/Scenes/ZIcosScene.unity
+    guid: 69f45e17b65bedf4fb62feeac619d133
   m_configObjects: {}
