@@ -7,8 +7,8 @@ public class TerrainGeneration : MonoBehaviour
 {
     [SerializeField] private Vector2 mapSize;
     public GameObject rockPrefab;
-    private float floor = 0.68f;
-    private float ceiling = 0.725f;
+    private float floor = 0.8f;
+    private float ceiling = 1f;
 
     // private List<GameObject> positions;
 
@@ -20,7 +20,7 @@ public class TerrainGeneration : MonoBehaviour
         Terrain terrain = GetComponent<Terrain>();
 
         //1. create a perlin noise map
-        float[,] noiseMap = Noise.GenerateNoiseMap(Mathf.CeilToInt(terrain.terrainData.size.x / 10), Mathf.CeilToInt(terrain.terrainData.size.z / 10), 0, 10f, 3, 1.5f, 1, new Vector2(1, 1));
+        float[,] noiseMap = Noise.GenerateNoiseMap(Mathf.CeilToInt(terrain.terrainData.size.x / 10), Mathf.CeilToInt(terrain.terrainData.size.z / 10), 0, 2.5f, 3, 3f, 1f, new Vector2(1, 1));
 
         //2. iterate over the noisemap
         for (int i = 0; i < noiseMap.GetLength(0); i++)
@@ -29,7 +29,6 @@ public class TerrainGeneration : MonoBehaviour
             {
                 if (noiseMap[i, j] > floor && noiseMap[i, j] < ceiling)
                 {
-                    // Debug.Log("rock spawn at posX = " + i + " posY = " + j);
                     //4. instantiate a rock on every rock spot
                     int posX = i * 10;
                     int posY = j * 10;
