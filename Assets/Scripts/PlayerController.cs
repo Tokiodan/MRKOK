@@ -1,25 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
+    public float moveSpeed = 5.0f;
     public float sprintSpeed = 5.5f; // Speed when holding Shift
 
     public Transform orientation;
-    float horizontalInput;
-    float verticalInput;
+    private float horizontalInput;
+    private float verticalInput;
 
-    Vector3 moveDirection;
+    private Vector3 moveDirection;
 
-    AudioSource sfxAudio;
-
+    private AudioSource sfxAudio;
     public Sound[] sfxSounds;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -47,15 +45,14 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // DANISGOATEDSPRINTBUTTON
+        // Check if Shift is held down
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             moveSpeed = sprintSpeed;
         }
         else
         {
-            
-            moveSpeed = 3.0f; 
+            moveSpeed = 5.0f; // Default speed
         }
     }
 
@@ -93,26 +90,13 @@ public class PlayerController : MonoBehaviour
         Sound s = Array.Find(sfxSounds, x => x.name == name);
         if (s == null)
         {
-            Debug.Log("non available sound");
+            Debug.Log("Sound not available");
         }
         else if (!sfxAudio.isPlaying)
         {
             Debug.Log(name + " started");
             sfxAudio.clip = s.clip;
             sfxAudio.Play();
-        }
-    }
-
-    private void QuickSFX()
-    {
-        Sound s = Array.Find(sfxSounds, x => x.name == name);
-        if (s == null)
-        {
-            Debug.Log("non available sound");
-        }
-        else if (!sfxAudio.isPlaying)
-        {
-            sfxAudio.PlayOneShot(s.clip);
         }
     }
 
