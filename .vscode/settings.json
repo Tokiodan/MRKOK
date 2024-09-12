@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "MRKOK.sln"
+    "dotnet.defaultSolution": "Y2 P1.sln"
 }

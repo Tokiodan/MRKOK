@@ -13,11 +13,11 @@ public class PlayerController : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    private bool canPlayWalkSFX = true;
+
     Vector3 moveDirection;
 
-    AudioSource sfxAudio;
-
-    public Sound[] sfxSounds;
+    [SerializeField] private AudioSource sfxAudio;
 
     Rigidbody rb;
     // Start is called before the first frame update
@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        sfxAudio = GetComponent<AudioSource>();
-
+        // sfxAudio = GetComponent<AudioSource>();
+        AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
     }
 
     // Update is called once per frame
@@ -70,46 +70,23 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerSound()
     {
-        if ((MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
+
+
+        if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
         {
-            MovementSFX("Grass walking");
-        }
-        else
-        {
-            StopSFX();
+            canPlayWalkSFX = false;
+            AudioSource a = AudioManagerSO.PlaySFXLoop("Walking", transform.position, 0.5f);
+            StartCoroutine(WaitforStop(a));
         }
     }
 
-    private void MovementSFX(string name)
+    private IEnumerator WaitforStop(AudioSource SFX)
     {
-        Sound s = Array.Find(sfxSounds, x => x.name == name);
-        if (s == null)
-        {
-            Debug.Log("non available sound");
-        }
-        else if (!sfxAudio.isPlaying)
-        {
-            Debug.Log(name + " started");
-            sfxAudio.clip = s.clip;
-            sfxAudio.Play();
-        }
+        Debug.Log("waiting until standing still...");
+        yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
+        SFX.Stop();
+        canPlayWalkSFX = true;
+
     }
 
-    private void QuickSFX()
-    {
-        Sound s = Array.Find(sfxSounds, x => x.name == name);
-        if (s == null)
-        {
-            Debug.Log("non available sound");
-        }
-        else if (!sfxAudio.isPlaying)
-        {
-            sfxAudio.PlayOneShot(s.clip);
-        }
-    }
-
-    private void StopSFX()
-    {
-        sfxAudio.Stop();
-    }
 }
