@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SwordSlash : MonoBehaviour
 {
-    public Transform SlashSpawn;
-    [SerializeField] GameObject SnowSlash;
-   
+    public Transform SlashSpawn;              // Position and rotation for the spawned slash
+    [SerializeField] GameObject SnowSlash;    // The SnowSlash particle effect to instantiate
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var Swordhit = SnowSlash = Instantiate(SnowSlash, SlashSpawn.position, SlashSpawn.rotation);
+            // Instantiate the SnowSlash at the specified spawn position and rotation
+            Instantiate(SnowSlash, SlashSpawn.position, SlashSpawn.rotation);
         }
     }
 }
