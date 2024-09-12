@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float moveSpeed;
+    public float sprintSpeed = 5.5f; // Speed when holding Shift
 
     public Transform orientation;
     float horizontalInput;
@@ -20,13 +20,13 @@ public class PlayerController : MonoBehaviour
     public Sound[] sfxSounds;
 
     Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         sfxAudio = GetComponent<AudioSource>();
-
     }
 
     // Update is called once per frame
@@ -42,18 +42,26 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
     }
 
-
-
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        // DANISGOATEDSPRINTBUTTON
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            
+            moveSpeed = 3.0f; 
+        }
     }
 
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
         rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
     }
 
