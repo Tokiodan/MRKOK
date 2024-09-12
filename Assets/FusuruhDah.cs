@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class FusuruhDah : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform ParticleSpawnPoint;
+    [SerializeField] GameObject FusuruhEffect;
+    public float FusuruhSpeed = 1;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            var FusuruhDah = FusuruhEffect = Instantiate(FusuruhEffect, ParticleSpawnPoint.position, ParticleSpawnPoint.rotation);
+            FusuruhDah.GetComponent<Rigidbody>().velocity = ParticleSpawnPoint.forward * FusuruhSpeed; 
+        }
     }
 }
