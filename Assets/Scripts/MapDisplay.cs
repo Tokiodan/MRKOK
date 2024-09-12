@@ -26,6 +26,6 @@ public class MapDisplay : MonoBehaviour
         texture.Apply();
 
         textureRender.sharedMaterial.mainTexture = texture;
-        textureRender.transform.localScale = new Vector3(width / 10, 1, height / 10);
+        // textureRender.transform.localScale = new Vector3(width / 10, 1, height / 10);
     }
 }
