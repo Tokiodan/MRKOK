@@ -16,13 +16,13 @@ public class FusuruhDah : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            // Bereken de offset positie door de forward-vector te gebruiken
+           
             Vector3 spawnPosition = ParticleSpawnPoint.position + ParticleSpawnPoint.forward * OffsetDistance;
 
-            // Instantieer het FusuruhEffect op de nieuwe positie met een offset
+  
             GameObject fusuruhInstance = Instantiate(FusuruhEffect, spawnPosition, ParticleSpawnPoint.rotation);
 
-            // Geef het een voorwaartse snelheid
+          
             Rigidbody rb = fusuruhInstance.GetComponent<Rigidbody>();
 
             if (rb != null)
