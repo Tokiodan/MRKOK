@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c54946dad8cd3f4b8392b64a4642295, type: 3}
   m_Name: Sound Manager
   m_EditorClassIdentifier: 
-  soundPrefab: {fileID: 0}
+  SoundObject: {fileID: 4956229102608461427, guid: 0267ad029d722634a8c6d39b41444ea6, type: 3}
+  Sounds:
+  - name: bg_01
+    clip: {fileID: 8300000, guid: 40389449a1ec7e84694146f947eba93b, type: 3}
+  - name: bg_02
+    clip: {fileID: 8300000, guid: b9392bf2ac46fe44b95c8ea22f469ae1, type: 3}
+  - name: Grand Tale
+    clip: {fileID: 8300000, guid: bea5602631c26cc4287872cdc1c79af6, type: 3}
+  - name: Walking
+    clip: {fileID: 8300000, guid: e61242e543e8d1143a76cdaf89c05e3a, type: 3}

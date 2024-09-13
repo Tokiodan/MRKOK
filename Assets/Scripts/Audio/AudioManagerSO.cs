@@ -26,7 +26,6 @@ public class AudioManagerSO : ScriptableObject
     // Here a list of sounds can be added in the soundManagerSO with the names for the sounds and their clip.
     public Sound[] Sounds;
 
-
     // this will play a SFX clip and return the audiosource if you want to do anything with it.
     public static AudioSource PlaySoundSFXClip(string name, Vector3 soundPos, float volume)
     {

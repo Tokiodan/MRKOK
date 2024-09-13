@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource sfxAudio;
 
     Rigidbody rb;
+
+    public InventoryObject inventory;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,21 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        var item = other.GetComponent<Item>();
+        if (item)
+        {
+            inventory.AddItem(item.item, 1);
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
     }
 
 

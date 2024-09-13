@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf616751d5bbcb47b6bf710e3ff31bb, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  type: 0
+  Desc: A strong weapon to slaughter even the thoughest enemies.
+  itemImg: {fileID: 21300000, guid: 16f7fa7e928b4e5489bf72496553f35e, type: 3}
+  damage: 40
+  resistance: 2
+  attackSpeed: 1.6
