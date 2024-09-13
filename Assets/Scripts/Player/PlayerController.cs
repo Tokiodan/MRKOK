@@ -8,28 +8,27 @@ public class PlayerController : MonoBehaviour
 {
 
     public float moveSpeed;
-
-    public Transform orientation;
     float horizontalInput;
     float verticalInput;
 
-    private bool canPlayWalkSFX = true;
-
+    public Transform orientation;
     Vector3 moveDirection;
 
-    [SerializeField] private AudioSource sfxAudio;
+    private bool canPlayWalkSFX = true;
 
     Rigidbody rb;
-
     public InventoryObject inventory;
+    public Canvas UI_VISIBLE_CANVAS;
+    [SerializeField] private AudioSource sfxAudio;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        // sfxAudio = GetComponent<AudioSource>();
         AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
+        UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
+
     }
 
     // Update is called once per frame
@@ -38,6 +37,8 @@ public class PlayerController : MonoBehaviour
         PlayerSound();
         MyInput();
         SpeedControl();
+
+        OpenInventory();
     }
 
     void FixedUpdate()
@@ -58,6 +59,23 @@ public class PlayerController : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.Container.Clear();
+    }
+
+    private void OpenInventory()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && UI_VISIBLE_CANVAS.enabled)
+        {
+            UI_VISIBLE_CANVAS.enabled = false;
+            Camera.main.GetComponent<PlayerCam>().enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            UI_VISIBLE_CANVAS.enabled = true;
+            Camera.main.GetComponent<PlayerCam>().enabled = false;
+
+        }
     }
 
 
