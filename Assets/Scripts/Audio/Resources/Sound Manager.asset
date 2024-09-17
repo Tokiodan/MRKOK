@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c54946dad8cd3f4b8392b64a4642295, type: 3}
   m_Name: Sound Manager
   m_EditorClassIdentifier: 
-  SoundObject: {fileID: 4956229102608461427, guid: 0267ad029d722634a8c6d39b41444ea6, type: 3}
+  SoundObject: {fileID: 4956229102608461427, guid: 3112e7b45323aca459bd16b662d17d83, type: 3}
   Sounds:
   - name: bg_01
     clip: {fileID: 8300000, guid: 3d2e48bc43a78214a8bd7e997a97f8b2, type: 3}
