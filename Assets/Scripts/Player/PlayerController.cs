@@ -7,7 +7,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float moveSpeed;
+    public float defaultMoveSpeed;
+    public float sprintSpeedMultiplier;
+    float moveSpeed;
     float horizontalInput;
     float verticalInput;
 
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
         AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
+        moveSpeed = defaultMoveSpeed;
 
     }
 
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour
         PlayerSound();
         MyInput();
         SpeedControl();
+        SprintCheck();
 
         OpenInventory();
     }
@@ -84,6 +88,17 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+    }
+
+    private void SprintCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            moveSpeed = defaultMoveSpeed * sprintSpeedMultiplier;
+        } else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            moveSpeed = defaultMoveSpeed;
+        }
     }
 
     private void MovePlayer()
