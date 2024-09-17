@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     public InventoryObject inventory;
-    public Canvas UI_VISIBLE_CANVAS;
+    private Canvas UI_VISIBLE_CANVAS;
     [SerializeField] private AudioSource sfxAudio;
 
     // Start is called before the first frame update
@@ -69,12 +69,13 @@ public class PlayerController : MonoBehaviour
             Camera.main.GetComponent<PlayerCam>().enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            Time.timeScale = 1f;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             UI_VISIBLE_CANVAS.enabled = true;
             Camera.main.GetComponent<PlayerCam>().enabled = false;
-
+            Time.timeScale = 0f;
         }
     }
 
@@ -118,7 +119,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator WaitforStop(AudioSource SFX)
     {
-        Debug.Log("waiting until standing still...");
         yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;

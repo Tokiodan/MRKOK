@@ -17,7 +17,6 @@ public class SoundDestroyer : MonoBehaviour
     {
         // _clipLength = _audioSource.clip.length;
         yield return new WaitUntil(() => !_audioSource.isPlaying);
-        Debug.Log("Destoyed SFX");
         Destroy(gameObject);
     }
 }

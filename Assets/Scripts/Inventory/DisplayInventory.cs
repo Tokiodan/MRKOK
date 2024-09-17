@@ -37,7 +37,8 @@ public class DisplayInventory : MonoBehaviour
         for (int i = 0; i < inventory.Container.Count; i++)
         {
             GameObject obj = Instantiate(ItemPrefab, gameObject.transform);
-            obj.GetComponentInChildren<UnityEngine.UI.Image>().sprite = inventory.Container[i].item.itemImg;
+            GameObject objSprite = obj.transform.GetChild(0).gameObject;
+            objSprite.GetComponent<UnityEngine.UI.Image>().sprite = inventory.Container[i].item.itemImg;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0"); //I got told to do the tostring part so it looks nice later on.
             itemsDisplayed.Add(inventory.Container[i], obj);
@@ -65,7 +66,8 @@ public class DisplayInventory : MonoBehaviour
             else
             {
                 GameObject obj = Instantiate(ItemPrefab, gameObject.transform);
-                Debug.Log(GetPosition(i).ToString());
+                GameObject objSprite = obj.transform.GetChild(0).gameObject;
+                objSprite.GetComponent<UnityEngine.UI.Image>().sprite = inventory.Container[i].item.itemImg;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].amount.ToString("n0");
                 itemsDisplayed.Add(inventory.Container[i], obj);
