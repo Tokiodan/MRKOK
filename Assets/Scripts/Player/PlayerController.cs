@@ -73,12 +73,13 @@ public class PlayerController : MonoBehaviour
             Camera.main.GetComponent<PlayerCam>().enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            Time.timeScale = 1f;
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             UI_VISIBLE_CANVAS.enabled = true;
             Camera.main.GetComponent<PlayerCam>().enabled = false;
-
+            Time.timeScale = 0f;
         }
     }
 
@@ -95,7 +96,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             moveSpeed = defaultMoveSpeed * sprintSpeedMultiplier;
-        } else if (Input.GetKeyUp(KeyCode.LeftShift))
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             moveSpeed = defaultMoveSpeed;
         }
@@ -104,7 +106,6 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
         rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
     }
 
@@ -131,13 +132,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    // destroys the walkSFX when player stops
     private IEnumerator WaitforStop(AudioSource SFX)
     {
         Debug.Log("waiting until standing still...");
         yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;
-
     }
 
 }

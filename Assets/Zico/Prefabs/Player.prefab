@@ -300,7 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668f3861607c9c14386516abbb690313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3.5
+  defaultMoveSpeed: 5
+  sprintSpeedMultiplier: 1.8
   orientation: {fileID: 170746544807608587}
   inventory: {fileID: 11400000, guid: 882e9a3bfeba2384b8cff7faa2ae1f77, type: 2}
   UI_VISIBLE_CANVAS: {fileID: 0}
@@ -394,6 +395,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1980768932068788801, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442918648790261019, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
