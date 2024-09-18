@@ -54,7 +54,7 @@ MonoBehaviour:
   Y_SPACE_BETWEEN_ITEM: 20
   X_START: -59
   Y_START: 28
-  ItemPrefab: {fileID: 7928122547313527428, guid: 1e7fd0762646eeb4d941251b473559b0, type: 3}
+  ItemPrefab: {fileID: 7928122547313527428, guid: 558c399bc9ad55944ad8eb75e3c26f16, type: 3}
 --- !u!1 &6559857268853518289
 GameObject:
   m_ObjectHideFlags: 0
