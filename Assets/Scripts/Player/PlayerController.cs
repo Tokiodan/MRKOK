@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
         moveSpeed = defaultMoveSpeed;
-
+        
     }
 
     // Update is called once per frame
@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
         SprintCheck();
 
         OpenInventory();
+
+
+        DrawPlayerCamRange(Camera.main.farClipPlane, 30);
     }
 
     void FixedUpdate()
@@ -122,8 +125,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerSound()
     {
-
-
         if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
         {
             canPlayWalkSFX = false;
@@ -132,7 +133,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     // destroys the walkSFX when player stops
     private IEnumerator WaitforStop(AudioSource SFX)
     {
@@ -140,6 +140,28 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;
+    }
+
+    private void DrawPlayerCamRange(float camRange,int Rays)
+    {
+        //defines the distance between the rays
+        float angleStep = 360f / Rays;
+
+        for (int i = 0; i < Rays; i++)
+        {
+            float angle = i * angleStep;
+            Vector3 direction = AngleToDirection(angle);
+
+            Ray ray = new Ray(transform.position, direction);
+
+            Debug.DrawRay(transform.position, direction * camRange, Color.green);
+        }
+    }
+
+    private Vector3 AngleToDirection(float degree)
+    {
+        float radians = degree * Mathf.Deg2Rad;
+        return new Vector3(Mathf.Cos(radians),0,Mathf.Sin(radians));
     }
 
 }
