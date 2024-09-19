@@ -801,7 +801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: {x: 0, y: 0}
-  rockPrefab: {fileID: 4155166564814526032, guid: 2ba8fbaa5885a3f479c2ebbfb877268f, type: 3}
+  rockPrefab: {fileID: 4155166564814526032, guid: d2e638ddd8e94c5438ce59934e8dd512, type: 3}
 --- !u!154 &1455705222
 TerrainCollider:
   m_ObjectHideFlags: 0
