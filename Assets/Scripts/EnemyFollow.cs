@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public float speed = 1.0f;
-    public Transform target;
-
-    // Update is called once per frame
-    void Update()
+    public Transform Player;
+    private NavMeshAgent agent;
+    private void Start()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);   
+        agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
+        agent.destination = Player.position;
     }
 }
