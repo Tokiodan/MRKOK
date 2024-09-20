@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DanisScene.unity
     guid: 3dd7e8798bb55874d900f3bfcca0c9af
   - enabled: 1
