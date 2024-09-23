@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
     private void Update()
     {
         // Left click for regular Sword attack
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             if (CanAttack)
             {
@@ -26,7 +26,7 @@ public class WeaponController : MonoBehaviour
         }
 
         // Right click for HeavySlab attack (now called Sword-Heavy)
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             if (CanAttack)
             {
