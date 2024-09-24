@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; // Required for NavMesh
@@ -97,3 +97,4 @@ public class Enemy_pounce_attack : MonoBehaviour
         }
     }
 }
+*/
