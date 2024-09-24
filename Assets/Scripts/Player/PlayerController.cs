@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         SprintCheck();
 
         OpenInventory();
+        SaveQuit();
     }
 
     void FixedUpdate()
@@ -52,17 +53,17 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        var item = other.GetComponent<Item>();
+        var item = other.GetComponent<GroundItem>();
         if (item)
         {
-            inventory.AddItem(item.item, 1);
+            inventory.AddItem(new Item(item.item), 1);
             Destroy(other.gameObject);
         }
     }
 
     private void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+        inventory.Container.Items = new InventorySlot[30];
     }
 
     private void OpenInventory()
@@ -140,6 +141,18 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;
+    }
+
+    private void SaveQuit()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            inventory.Save();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            inventory.Load();
+        }
     }
 
 }
