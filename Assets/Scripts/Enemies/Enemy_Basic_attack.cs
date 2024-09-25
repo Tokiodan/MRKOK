@@ -1,29 +1,108 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Basic_attack : MonoBehaviour
 {
-    public float damage = 10.0f; // De schade die de vijand veroorzaakt
-    public GameObject player; // Referentie naar het speler-object
+    public float damage = 10.0f;
+    public float attackRange = 2.0f;
+    public float attackCooldown = 2.0f;
+    public GameObject player;
 
-    private player playerScript; // Verwijzing naar het player-script om HP te beheren
+    private player playerScript;
+    private Animator animator;
+    private NavMeshAgent navMeshAgent;
+    private float nextAttackTime = 0f;
 
-    // Start is called before the eerste frame update
+    // SerializeField allows you to assign this in the inspector
+    [SerializeField] private Collider attackCollider;
+
     void Start()
     {
-        // Zorg ervoor dat we toegang krijgen tot het player-script op het speler-object
         playerScript = player.GetComponent<player>();
+        animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        // Disable the attack collider at the start
+        if (attackCollider != null)
+        {
+            attackCollider.enabled = false;
+        }
     }
 
-    // Dit wordt aangeroepen wanneer de vijand iets raakt
-    void OnCollisionEnter(Collision collision)
+    void Update()
     {
-        // Controleer of de vijand de speler raakt
-        if (collision.gameObject == player)
+        float distanceToPlayerSqr = (transform.position - player.transform.position).sqrMagnitude;
+
+        if (distanceToPlayerSqr <= attackRange * attackRange)
         {
-            // Verminder de HP van de speler met de hoeveelheid schade
-            playerScript.TakeDamage(damage);
+            navMeshAgent.isStopped = true;
+
+            if (Time.time >= nextAttackTime)
+            {
+                Attack();
+            }
         }
+        else
+        {
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(player.transform.position);
+        }
+    }
+
+    void Attack()
+    {
+        animator.SetTrigger("Attack01");
+        nextAttackTime = Time.time + attackCooldown;
+
+        // Enable the attack collider briefly during the attack
+        if (attackCollider != null)
+        {
+            attackCollider.enabled = true;
+            StartCoroutine(DisableAttackCollider());
+        }
+    }
+
+    private IEnumerator DisableAttackCollider()
+    {
+        // Wait for the duration of the attack animation
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        if (attackCollider != null)
+        {
+            attackCollider.enabled = false; // Disable collider after attack
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && IsAttacking())
+        {
+            if (playerScript != null)
+            {
+                playerScript.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.LogWarning("Player script reference is missing!");
+            }
+        }
+    }
+
+    private bool IsAttacking()
+    {
+        if (animator == null)
+        {
+            Debug.LogWarning("Animator is missing!");
+            return false;
+        }
+
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01");
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue; // Visual Debug: show attack range
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

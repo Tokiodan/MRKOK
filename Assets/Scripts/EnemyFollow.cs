@@ -8,13 +8,13 @@ public class EnemyFollow : MonoBehaviour
     public Transform Player;
     private NavMeshAgent agent;
 
-    // Parameters for enemy vision
-    public float viewRadius = 10f; // How far the enemy can see
+ 
+    public float viewRadius = 10f; 
     [Range(0, 360)]
-    public float viewAngle = 90f; // The field of view (FOV) of the enemy in degrees
+    public float viewAngle = 90f; 
 
-    public LayerMask playerMask; // Layer for the player
-    public LayerMask obstacleMask; // Layer for obstacles (like walls)
+    public LayerMask playerMask; 
+    public LayerMask obstacleMask; 
 
     private void Start()
     {
@@ -29,42 +29,42 @@ public class EnemyFollow : MonoBehaviour
         }
         else
         {
-            agent.destination = transform.position; // Optional: You can set a patrol or idle behavior here.
+            agent.destination = transform.position; 
         }
     }
 
-    // Method to check if the enemy can see the player
+ 
     private bool CanSeePlayer()
     {
-        // Calculate the direction to the player
+   
         Vector3 directionToPlayer = (Player.position - transform.position).normalized;
 
-        // Check if the player is within the enemy's FOV
+        // FOVcheck
         float angleBetweenEnemyAndPlayer = Vector3.Angle(transform.forward, directionToPlayer);
         if (angleBetweenEnemyAndPlayer < viewAngle / 2f)
         {
-            // Check if the player is within the view radius
+            // Checking if player is in the view distance
             float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
 
             if (distanceToPlayer <= viewRadius)
             {
-                // Raycast to check if there's an obstacle between the enemy and the player
+                // Raycast 2 check obstalce
                 if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacleMask))
                 {
-                    // If no obstacle, the enemy can see the player
+                    // If no obstacle = See player
                     return true;
                 }
             }
         }
 
-        // If any condition is not satisfied, the enemy cannot see the player
+        
         return false;
     }
 
-    // Optional: Visualize the enemy's FOV in the editor (can be useful for debugging)
+   
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.red; // Visual debug, you can see the enemies viewradius
         Gizmos.DrawWireSphere(transform.position, viewRadius);
 
         Vector3 fovLine1 = Quaternion.Euler(0, viewAngle / 2, 0) * transform.forward * viewRadius;

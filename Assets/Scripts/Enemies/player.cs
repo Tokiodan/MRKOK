@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    public float player_HP = 100.0f; // Start-HP van de speler
+    public float player_HP = 100.0f; // Start HP of the player
 
-    // Functie om schade toe te brengen aan de speler
+    // Function to apply damage to the player
     public void TakeDamage(float damage)
     {
         player_HP -= damage;
+        Debug.Log("Hit! Current HP: " + player_HP);
 
-        // Controleer of de speler geen HP meer heeft
+        // Check if the player has no HP left
         if (player_HP <= 0)
         {
             Die();
         }
     }
 
-    // Functie die wordt aangeroepen wanneer de speler doodgaat
+    // Function that is called when the player dies
     void Die()
     {
-        // Hier kun je code toevoegen voor wat er gebeurt als de speler dood is
+        // Code to execute when the player dies
         Debug.Log("Player is dead!");
-        // Bijvoorbeeld de speler deactiveren of naar een 'Game Over' scherm gaan
+        // For example, deactivate the player or show a 'Game Over' screen
         gameObject.SetActive(false);
     }
 }
