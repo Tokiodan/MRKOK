@@ -7,7 +7,6 @@ public class SpartaKick : MonoBehaviour
     public float KickForce = 10.0f; // Initialize with a default value
     public float KickRange = 2.0f; // Initialize with a default value
     public GameObject Foot;
-    public GameObject KickParticleEffect; // Add a reference for the particle effect prefab
     public float footOffsetDistance = 0.5f; // Distance below the camera
     public float footForwardDistance = 1.0f; // Distance in front of the camera
     public float footCooldown = 1.0f; // Cooldown time in seconds
@@ -30,57 +29,51 @@ public class SpartaKick : MonoBehaviour
         }
     }
 
-    void Kick() // Change to Kick with a capital 'K'
+    void Kick()
+{
+    // Get the camera's position and rotation
+    Camera mainCamera = Camera.main;
+
+    // Calculate the position for the foot slightly below and in front of the camera
+    Vector3 footSpawnPosition = mainCamera.transform.position 
+                                - mainCamera.transform.up * footOffsetDistance 
+                                + mainCamera.transform.forward * footForwardDistance;
+
+    // Get the camera's rotation
+    Quaternion cameraRotation = mainCamera.transform.rotation;
+
+    // Instantiate foot at the calculated position with camera's rotation
+    GameObject spawnedFoot = Instantiate(Foot, footSpawnPosition, cameraRotation);
+
+    // Attach the foot to the camera so it moves with the player's view
+    spawnedFoot.transform.SetParent(mainCamera.transform);
+
+    // Set cooldown active
+    isCooldown = true;
+
+    // Start the cooldown coroutine
+    StartCoroutine(FootCooldown(spawnedFoot));
+
+    // Use class variables instead of redefining them
+    Collider[] hitColliders = Physics.OverlapSphere(transform.position, KickRange);
+    foreach (var hitCollider in hitColliders)
     {
-        // Get the camera's position and rotation
-        Camera mainCamera = Camera.main;
-
-        // Calculate the position for the foot slightly below and in front of the camera
-        Vector3 footSpawnPosition = mainCamera.transform.position 
-                                    - mainCamera.transform.up * footOffsetDistance 
-                                    + mainCamera.transform.forward * footForwardDistance;
-
-        // Get the camera's rotation
-        Quaternion cameraRotation = mainCamera.transform.rotation;
-
-        // Instantiate foot at the calculated position with camera's rotation
-        GameObject spawnedFoot = Instantiate(Foot, footSpawnPosition, cameraRotation);
-
-        // Set cooldown active
-        isCooldown = true;
-
-        // Start the cooldown coroutine
-        StartCoroutine(FootCooldown(spawnedFoot));
-
-        // Use class variables instead of redefining them
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, KickRange);
-        foreach (var hitCollider in hitColliders)
+        if (hitCollider.CompareTag("Enemy")) // Ensure your enemy has the "Enemy" tag
         {
-            if (hitCollider.CompareTag("Enemy")) // Ensure your enemy has the "Enemy" tag
+            Rigidbody enemyRb = hitCollider.GetComponent<Rigidbody>();
+            if (enemyRb != null)
             {
-                Rigidbody enemyRb = hitCollider.GetComponent<Rigidbody>();
-                if (enemyRb != null)
-                {
-                    // Calculate the direction to push the enemy away
-                    Vector3 direction = hitCollider.transform.position - transform.position;
-                    direction.Normalize(); // Normalize the direction
-                    enemyRb.AddForce(direction * KickForce, ForceMode.Impulse);
-
-                    // Get the position in front of the camera for the particle effect
-                    Vector3 particleSpawnPosition = mainCamera.transform.position + mainCamera.transform.forward * 2.0f;
-
-                    // Instantiate particle effect at the calculated position
-                    GameObject particleEffectInstance = Instantiate(KickParticleEffect, particleSpawnPosition, Quaternion.identity);
-
-                    // Destroy the particle effect after 0.35 seconds
-                    Destroy(particleEffectInstance, 0.35f);
-                }
+                // Calculate the direction to push the enemy away
+                Vector3 direction = hitCollider.transform.position - transform.position;
+                direction.Normalize(); // Normalize the direction
+                enemyRb.AddForce(direction * KickForce, ForceMode.Impulse);
             }
         }
-
-        // Optionally destroy the spawned foot object after some time
-        Destroy(spawnedFoot, 1.0f); // Adjust the duration as needed
     }
+
+    // Optionally destroy the spawned foot object after some time
+    Destroy(spawnedFoot, 1.0f); // Adjust the duration as needed
+}
 
     private IEnumerator FootCooldown(GameObject spawnedFoot)
     {
