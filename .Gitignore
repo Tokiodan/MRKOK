@@ -75,6 +75,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 
-# End of https://www.toptal.com/developers/gitignore/api/unity
+#removed .vscode due to some merge issues. Has no impact on the game.
 .vscode/settings.json
 /.vscode
+
+#Not everyone has the same foldername, so this causes even more merges than are needed.
+#(also only required for visual studio code and visual studio community.)
+.sln

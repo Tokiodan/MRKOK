@@ -27,10 +27,15 @@ public class InventoryObject : ScriptableObject
     public string savePath;
     public ItemDatabaseObject database;
     public Inventory Container;
+
+
+
+    //Item is able to be found in the database through 
+    // database.GetItem[itemId] 
+    // You can add scriptable object items by simply adding them to the database. 
+    // it will automatically give them a id If i'm not wrong.
     public void AddItem(Item _item, int _amount)
     {
-        // checks if the player has the inventory item. 
-        // if it does, it adds the value to your current amount.
         for (int i = 0; i < Container.Items.Length; i++)
         {
             if (Container.Items[i].ID == _item.Id)
