@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class SwordSlash : MonoBehaviour
 {
-    public Transform SlashSpawn;              // Position and rotation for the spawned slash
-    [SerializeField] GameObject SnowSlash;    // The SnowSlash particle effect to instantiate
-
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (other.CompareTag("Skeleton")) // Make sure skeletons are tagged appropriately
         {
-            // Instantiate the SnowSlash at the specified spawn position and rotation
-            Instantiate(SnowSlash, SlashSpawn.position, SlashSpawn.rotation);
+            SkeletonLogic skeleton = other.GetComponent<SkeletonLogic>();
+            if (skeleton != null)
+            {
+                skeleton.TakeHit(); // Call the TakeHit method on the skeleton
+                // If the skeleton is killed, you can add more logic here (e.g., effects)
+            }
         }
     }
 }

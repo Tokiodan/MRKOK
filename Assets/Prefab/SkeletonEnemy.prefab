@@ -2340,9 +2340,10 @@ GameObject:
   - component: {fileID: 4620039535431811263}
   - component: {fileID: 7822687399931671501}
   - component: {fileID: 4648547633662667942}
+  - component: {fileID: 1272259518344015812}
   m_Layer: 0
   m_Name: SkeletonEnemy
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2465,6 +2466,19 @@ MonoBehaviour:
   attackCooldown: 0
   player: {fileID: 0}
   swordCollider: {fileID: 833942411784081528}
+--- !u!114 &1272259518344015812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8826028299656308802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78169a014c8839d4a8ac5b542bf77056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitsToKill: 3
 --- !u!1 &8980526044529091334
 GameObject:
   m_ObjectHideFlags: 0
