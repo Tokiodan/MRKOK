@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class divinePillar : MonoBehaviour
 {
-    public GameObject aoeIndicatorPrefab; // Voor de indicator
-    public GameObject aoeLightPrefab; // Voor de lichtstraal
-    public float cooldownDuration = 5f; // Duur van de cooldown in seconden
-    private float cooldownTimer = 0f; // Timer om cooldown bij te houden
+    public GameObject aoeIndicatorPrefab; // For the indicator
+    public GameObject aoeLightPrefab; // For the light beam
+    public float cooldownDuration = 5f; // Duration of the cooldown in seconds
+    public int damageAmount = 20; // Amount of damage to deal
+
+    private float cooldownTimer = 0f; // Timer to keep track of cooldown
     private GameObject currentIndicator;
     private Vector3 targetPosition;
     private bool isPlacingAoE = false;
+    private bool hasDealtDamage = false; // Ensure damage is only dealt once
 
     void Update()
     {
@@ -22,36 +25,36 @@ public class divinePillar : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha4) && !isPlacingAoE && cooldownTimer <= 0f)
         {
-            // Maak de indicator aan
+            // Create the indicator
             currentIndicator = Instantiate(aoeIndicatorPrefab, Vector3.zero, Quaternion.identity);
             isPlacingAoE = true;
+            hasDealtDamage = false; // Reset damage flag for a new cast
         }
 
         if (isPlacingAoE && currentIndicator != null)
         {
-            // Volg de muispositie om de indicator te verplaatsen
+            // Follow the mouse position to move the indicator
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                // Update de indicator positie maar sla de targetpositie op
+                // Update the indicator position but save the target position
                 targetPosition = new Vector3(hit.point.x, -0.99f, hit.point.z);
-                Debug.Log(hit.collider.gameObject.name);
-                currentIndicator.transform.position = targetPosition; // Houdt de indicator boven de grond
+                currentIndicator.transform.position = targetPosition; // Keep the indicator above the ground
             }
         }
 
         if (Input.GetKeyUp(KeyCode.Alpha4) && currentIndicator != null)
         {
-            // Bevestig de aanval
-            // Verwijder de indicator
+            // Confirm the attack
+            // Destroy the indicator
             Destroy(currentIndicator);
             isPlacingAoE = false;
 
-            // Creëer de gele lichtstraal
+            // Create the light beam with a collider to handle damage
             GameObject aoeLight = Instantiate(aoeLightPrefab, targetPosition, Quaternion.identity);
-            Destroy(aoeLight, 3f); // Verwijder de lichtstraal na 3 seconden
+            Destroy(aoeLight, 3f); // Remove the light beam after 3 seconds
 
             // Start cooldown
             cooldownTimer = cooldownDuration;
@@ -60,7 +63,7 @@ public class divinePillar : MonoBehaviour
 
     void UpdateCooldownTimer()
     {
-        // Verminder de cooldown timer als deze groter is dan 0
+        // Reduce the cooldown timer if it's greater than 0
         if (cooldownTimer > 0f)
         {
             cooldownTimer -= Time.deltaTime;
