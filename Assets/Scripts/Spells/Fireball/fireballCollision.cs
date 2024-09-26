@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FireballCollision : MonoBehaviour
 {
+    public int damage = 10; // The amount of damage the fireball does
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,21 +22,39 @@ public class FireballCollision : MonoBehaviour
     {
         Debug.Log("Trigger entered with: " + other.gameObject.name); // Log object name
 
-        // Check if the object does not have the tag "Player"
-        if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) // Closing parenthesis added here
+        // Check if the object is not the player
+        if (!other.CompareTag("Player") && !other.CompareTag("Enemy"))
         {
-            Debug.Log("Collided with: " + other.gameObject.name + " (Not a Player)");
-            Destroy(gameObject);
+            Debug.Log("Collided with: " + other.gameObject.name + " (Not a Player or Enemy)");
+            Destroy(gameObject); // Destroy the fireball on impact with non-enemy objects
         }
-        else if (!other.CompareTag("Player") && other.CompareTag("Enemy")) // Closing parenthesis added here
+        else if (other.CompareTag("Enemy"))
         {
             Debug.Log("Collided with: " + other.gameObject.name + " (Enemy)");
+            // Deal damage to the enemy
+            ApplyDamage(other);
+            
             // Start coroutine to handle the delayed destruction
             StartCoroutine(HandleCollisionWithEnemy(other));
         }
         else
         {
             Debug.Log("Collided with Player, no destruction.");
+        }
+    }
+
+    private void ApplyDamage(Collider enemy)
+    {
+        // Get the EnemyHealth component and apply damage
+        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(damage); // Apply damage to the enemy
+            Debug.Log("Damaged enemy: " + enemy.gameObject.name + " for " + damage + " damage.");
+        }
+        else
+        {
+            Debug.Log("Enemy does not have an EnemyHealth component.");
         }
     }
 
