@@ -10,6 +10,12 @@ public class WeaponController : MonoBehaviour
     public float HeavyAttackCooldown = 2.0f;
     public AudioClip SwordAttackSound;
 
+    private void Start()
+    {
+        // Initially hide the sword
+        SetSwordVisibility(false);
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && CanAttack)
@@ -30,6 +36,9 @@ public class WeaponController : MonoBehaviour
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Attack");
 
+        // Show the sword when attacking
+        SetSwordVisibility(true);
+
         AudioSource ac = GetComponent<AudioSource>();
         ac.PlayOneShot(SwordAttackSound);
 
@@ -43,6 +52,9 @@ public class WeaponController : MonoBehaviour
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Sword-Heavy");
 
+        // Show the sword when attacking
+        SetSwordVisibility(true);
+
         StartCoroutine(ResetAttackCooldown(HeavyAttackCooldown));
     }
 
@@ -50,5 +62,17 @@ public class WeaponController : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldown);
         CanAttack = true;
+        // Optionally hide the sword again after the attack
+        SetSwordVisibility(false);
+    }
+
+    private void SetSwordVisibility(bool isVisible)
+    {
+        // Enable or disable the sword's renderer
+        MeshRenderer renderer = Sword.GetComponent<MeshRenderer>();
+        if (renderer != null)
+        {
+            renderer.enabled = isVisible;
+        }
     }
 }
