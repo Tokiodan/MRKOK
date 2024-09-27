@@ -10,16 +10,16 @@ public class Basic_attack : MonoBehaviour
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private float nextAttackTime = 0f;
-    [SerializeField] private Collider swordCollider;
+    [SerializeField] private Collider Collider;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
 
-        if (swordCollider != null)
+        if (Collider != null)
         {
-            swordCollider.enabled = false;
+            Collider.enabled = false;
         }
     }
 
@@ -48,9 +48,9 @@ public class Basic_attack : MonoBehaviour
         animator.SetTrigger("Attack01");
         nextAttackTime = Time.time + attackCooldown;
 
-        if (swordCollider != null)
+        if (Collider != null)
         {
-            swordCollider.enabled = true;
+            Collider.enabled = true;
             StartCoroutine(DisableSwordColliderAfterAnimation());
         }
     }
@@ -58,7 +58,7 @@ public class Basic_attack : MonoBehaviour
     private System.Collections.IEnumerator DisableSwordColliderAfterAnimation()
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        swordCollider.enabled = false;
+        Collider.enabled = false;
     }
 
     public bool IsAttacking()
