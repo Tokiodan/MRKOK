@@ -8,6 +8,7 @@ public enum ItemType
 {
     Weapon,
     Tool,
+    Magic,
     Material,
     Currency,
     Default

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VenomBomb : MonoBehaviour
+public class VenomBomb : MagicAttack
 {
     public GameObject venomBombPrefab;   // Assign the Venom Bomb prefab in the Inspector
     public GameObject venomPuddlePrefab; // Assign the Venom Puddle prefab in the Inspector
@@ -27,7 +27,7 @@ public class VenomBomb : MonoBehaviour
         {
             // Spawn the Venom Bomb when pressing '5'
             SpawnVenomBomb();
-            
+
             // Update the last spawn time
             lastSpawnTime = Time.time;
         }
