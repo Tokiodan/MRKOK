@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float crouchSpeedMultiplier = 0.6f;
     public float jumpForce = 10f;
     private bool isGrounded;
-    public float groundCheckDistance = 1.1f; 
+    public float groundCheckDistance = 1.1f;
     float moveSpeed;
     float horizontalInput;
     float verticalInput;
@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     public Canvas UI_VISIBLE_CANVAS;
     [SerializeField] private AudioSource sfxAudio;
 
-    public Transform playerBody;
     public Vector3 normalScale = new Vector3(1, 1, 1);
     public Vector3 crouchScale = new Vector3(1, 0.5f, 1);
 
@@ -50,9 +49,9 @@ public class PlayerController : MonoBehaviour
         PlayerSound();
         MyInput();
         SpeedControl();
-        SprintCheck();
-        CrouchCheck();
-        JumpCheck(); 
+        // SprintCheck();
+        // CrouchCheck();
+        // JumpCheck();
 
         OpenInventory();
         SaveQuit();
@@ -61,6 +60,9 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+        SprintCheck();
+        CrouchCheck();
+        JumpCheck();
         GroundCheck();
     }
 
@@ -120,17 +122,17 @@ public class PlayerController : MonoBehaviour
 
     private void CrouchCheck()
     {
-        if (Input.GetKeyDown(KeyCode.C)) 
+        if (Input.GetKeyDown(KeyCode.C))
         {
             if (isCrouched)
             {
-                playerBody.localScale = normalScale;
+                transform.localScale = normalScale;
                 moveSpeed = defaultMoveSpeed;
                 isCrouched = false;
             }
             else
             {
-                playerBody.localScale = crouchScale;
+                transform.localScale = crouchScale;
                 moveSpeed = defaultMoveSpeed * crouchSpeedMultiplier; // slowed down
                 isCrouched = true;
             }
@@ -164,13 +166,13 @@ public class PlayerController : MonoBehaviour
 
     private void JumpCheck()
     {
-        // prevent jump
-        if (isCrouched)
-        {
-            return;
-        }
+        // // prevent jump
+        // if (isCrouched)
+        // {
+        //     return;
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouched)
         {
             Vector3 currentVelocity = rb.velocity;
             rb.velocity = new Vector3(currentVelocity.x, jumpForce, currentVelocity.z);
@@ -187,11 +189,11 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-      //  else
-       // {
-          //  float smoothFactor = 0.1f;
+        //  else
+        // {
+        //  float smoothFactor = 0.1f;
         //    rb.velocity = new Vector3(flatVel.x * (1 - smoothFactor), rb.velocity.y, flatVel.z * (1 - smoothFactor));
-       // }
+        // }
     }
 
 

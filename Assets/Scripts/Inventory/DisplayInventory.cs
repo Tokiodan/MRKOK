@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 public class DisplayInventory : MonoBehaviour
 {
 
@@ -23,7 +24,9 @@ public class DisplayInventory : MonoBehaviour
     public int Y_START;
 
     public GameObject ItemPrefab;
-
+    public GameObject TextPrefab;
+    public int Detail_Offset_Y;
+    public int Detail_Offset_X;
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
 
     void Start()
@@ -35,6 +38,23 @@ public class DisplayInventory : MonoBehaviour
     void Update()
     {
         UpdateSlots();
+    }
+
+    //displays data of an item. (REQUIRES ITEM TO HAVE ITEMDETAILS() )
+    public void DisplayDetails(Item item)
+    {
+        // Dictionary<string, object> itemData = inventory.database.GetItem[item.Id].ItemDetails();
+        // itemData["name"] = item.Name;
+
+        // int prevOffset = 0;
+        // foreach (var data in itemData)
+        // {
+        //     // instantiate text prefab.
+        //     var textpref = Instantiate(TextPrefab);
+        //     // add the data
+        //     // save the offset
+        //     // go next
+        // }
     }
 
     //The reason why we are splitting the image and the item data itself is so the two are not interconnected. 
@@ -88,13 +108,13 @@ public class DisplayInventory : MonoBehaviour
         EventTrigger.callback.AddListener(action);
         trigger.triggers.Add(EventTrigger);
     }
-
     public void OnEnter(GameObject obj)
     {
         mouseItem.hoverObj = obj;
         if (itemsDisplayed.ContainsKey(obj))
         {
             mouseItem.hoverItem = itemsDisplayed[obj];
+            DisplayDetails(itemsDisplayed[obj].item);
         }
     }
     public void OnExit(GameObject obj)

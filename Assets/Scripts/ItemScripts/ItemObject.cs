@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
@@ -19,6 +20,16 @@ public abstract class ItemObject : ScriptableObject
 
     [TextArea(15, 20)]
     public string Desc;
+
+    public Dictionary<string, object> ItemDetails()
+    {
+        Dictionary<string, object> dict = new Dictionary<string, object>();
+
+        dict["Item"] = this.Id;
+        dict["Type"] = this.type;
+        dict["desc"] = this.Desc;
+        return dict;
+    }
 }
 
 [System.Serializable]

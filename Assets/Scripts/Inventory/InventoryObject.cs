@@ -76,7 +76,7 @@ public class InventoryObject : ScriptableObject
                 return Container.Items[i];
             }
         }
-        // TODO come back for full inv
+        // TODO come back to do the tutorial for if the inventory is full.
         return null;
     }
 
