@@ -5,19 +5,23 @@ public class Basic_attack : MonoBehaviour
 {
     public float attackRange = 2.0f;
     public float attackCooldown = 2.0f;
-    public GameObject player;
+    [SerializeField] private GameObject player;
 
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private float nextAttackTime = 0f;
 
     // This makes absolutely no fucking sense LMFAO -z
+    // if you public a serialized field, it does nothing.
     [SerializeField] private Collider Collider;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        // there will be one player anyway, why not just scan for the player tag? -Z
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (Collider != null)
         {
@@ -43,6 +47,10 @@ public class Basic_attack : MonoBehaviour
             navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(player.transform.position);
         }
+
+        // This is for the movement part of your animation. 
+        // It makes skelly stop and go based on how fast you move -Z
+        animator.SetFloat("MovementSpeed", navMeshAgent.velocity.magnitude);
     }
 
     private void Attack()

@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         PlayerSound();
         MyInput();
         SpeedControl();
-        // SprintCheck();
+        SprintCheck();
         // CrouchCheck();
         // JumpCheck();
 
@@ -69,10 +69,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
-        SprintCheck();
         CrouchCheck();
         JumpCheck();
         GroundCheck();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Debug.Log("hit for dmg amount " + damage);
     }
 
     public void MagicAttack()

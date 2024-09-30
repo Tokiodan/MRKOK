@@ -8,35 +8,58 @@ public class EnemyFollow : MonoBehaviour
     public Transform Player;
     private NavMeshAgent agent;
 
- 
-    public float viewRadius = 10f; 
-    [Range(0, 360)]
-    public float viewAngle = 90f; 
 
-    public LayerMask playerMask; 
-    public LayerMask obstacleMask; 
+    public float viewRadius = 10f;
+    [Range(0, 360)]
+    public float viewAngle = 90f;
+
+    public LayerMask playerMask;
+    public LayerMask obstacleMask;
+
+    public float accelSpeed;
+    public float speed;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        // there will be one player anyway, why not just scan for the player tag? -Z
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
     {
         if (CanSeePlayer())
         {
-            agent.destination = Player.position;
+            // an extra stop check so skelly doesn't even wanna run through you. -Z
+            float playerDistance = Vector3.Distance(transform.position, Player.position);
+            if (playerDistance > agent.stoppingDistance)
+            {
+                agent.destination = Player.position;
+
+                // This is to make sure skelly doens't run through your ass -Z
+                if (playerDistance < 2f)
+                {
+                    agent.speed = Mathf.Lerp(agent.speed, 1.0f, Time.deltaTime * 2f);
+                    agent.acceleration = Mathf.Lerp(agent.acceleration, 4.0f, Time.deltaTime * 2f);
+                }
+                else
+                {
+                    agent.speed = speed;
+                    agent.acceleration = accelSpeed;
+                }
+            }
         }
         else
         {
-            agent.destination = transform.position; 
+            agent.destination = transform.position;
         }
     }
 
- 
+
     private bool CanSeePlayer()
     {
-   
+
         Vector3 directionToPlayer = (Player.position - transform.position).normalized;
 
         // FOVcheck
@@ -57,11 +80,11 @@ public class EnemyFollow : MonoBehaviour
             }
         }
 
-        
+
         return false;
     }
 
-   
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red; // Visual debug, you can see the enemies viewradius
