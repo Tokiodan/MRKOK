@@ -12,4 +12,12 @@ public class MagicObject : ItemObject
     {
         type = ItemType.Magic;
     }
+
+    public override Dictionary<string, object> ItemDetails()
+    {
+        Dictionary<string, object> dict = base.ItemDetails();
+        dict["damage"] = attackDamage;
+        dict["cooldown"] = cooldown;
+        return dict;
+    }
 }

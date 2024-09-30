@@ -22,11 +22,10 @@ public abstract class ItemObject : ScriptableObject
     [TextArea(15, 20)]
     public string Desc;
 
-    public Dictionary<string, object> ItemDetails()
+    public virtual Dictionary<string, object> ItemDetails()
     {
         Dictionary<string, object> dict = new Dictionary<string, object>();
-
-        dict["Item"] = this.Id;
+        dict["name"] = this.Id;
         dict["Type"] = this.type;
         dict["desc"] = this.Desc;
         return dict;

@@ -468,6 +468,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1241497357111361514, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+      propertyPath: TextPrefab
+      value: 
+      objectReference: {fileID: 8640335270283984248, guid: 4f3e8b50f695b564498622912b2a4160, type: 3}
+    - target: {fileID: 1241497357111361514, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+      propertyPath: detailPanel
+      value: 
+      objectReference: {fileID: 438378816}
+    - target: {fileID: 1241497357111361514, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+      propertyPath: Detail_Offset_X
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5714733284546737087, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7381831908459665312, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
       propertyPath: m_Name
       value: Player
@@ -513,10 +529,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5714733284546737087, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+--- !u!1 &438378816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1418200019690211508, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+  m_PrefabInstance: {fileID: 397285016}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &715059769
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826028299656308802, guid: ce302264aa7bf2949aaa987656eb36d7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -804,10 +826,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup_rock
       objectReference: {fileID: 0}
-    - target: {fileID: 6187284149267076157, guid: 284f90020d516eb418d1b54c5662bfee, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 006863e0f65c42c439d697af59c3b3a3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1197,54 +1215,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 0, y: 0}
   rockPrefab: {fileID: 4155166564814526032, guid: d2e638ddd8e94c5438ce59934e8dd512, type: 3}
---- !u!1 &1362332664
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1362332666}
-  - component: {fileID: 1362332665}
-  m_Layer: 0
-  m_Name: DivinePillar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1362332665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362332664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f2dd4399953e640a77f45a929584d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aoeIndicatorPrefab: {fileID: 4241277057360122639, guid: c14f175d6aae7884c9bcdac2a9dbd339, type: 3}
-  aoeLightPrefab: {fileID: 5216164918406601452, guid: 60b8c094a6f70aa4eb4ebd4600b8da31, type: 3}
-  cooldownDuration: 5
-  damageAmount: 20
---- !u!4 &1362332666
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362332664}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 679.85443, y: 67.725174, z: 450.40247}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1611424420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,6 +1371,5 @@ SceneRoots:
   - {fileID: 827839847}
   - {fileID: 1264691866}
   - {fileID: 397285016}
-  - {fileID: 1362332666}
   - {fileID: 826647578}
   - {fileID: 1214569888}
