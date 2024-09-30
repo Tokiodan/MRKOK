@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DisplayHotbarItems : MonoBehaviour
@@ -20,6 +22,8 @@ public class DisplayHotbarItems : MonoBehaviour
     GameObject[] itemCount;
 
     private InventorySlot CurrentSelected;
+    private MagicAttack spellScript;
+
 
     void Start()
     {
@@ -68,8 +72,11 @@ public class DisplayHotbarItems : MonoBehaviour
 
             // get the prefab with the attack from the item.
             // add it to the player
-            Debug.Log("setting script");
-            MagicAttack spellScript = Spell.spellprefab.GetComponent<MagicAttack>();
+            if (spellScript != Spell.spellprefab.GetComponent<MagicAttack>())
+            {
+                Debug.Log("setting script");
+                spellScript = Spell.spellprefab.GetComponent<MagicAttack>();
+            }
 
             if (PlayerController.FireMagic != spellScript.CastSpell)
             {
