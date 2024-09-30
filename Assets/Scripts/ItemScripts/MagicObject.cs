@@ -7,7 +7,7 @@ public class MagicObject : ItemObject
 {
     public float attackDamage;
     public float cooldown;
-    public MagicAttack mgattack;
+    public GameObject spellprefab;
     public void Awake()
     {
         type = ItemType.Magic;

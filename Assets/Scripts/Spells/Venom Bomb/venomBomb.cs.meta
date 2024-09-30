@@ -3,7 +3,9 @@ guid: cba5c5fe406995e4f997202a04a5eacb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - venomBombPrefab: {fileID: 3092094370024571730, guid: 3d4c7e9eb3fa39e4abdae2805ebb8d08, type: 3}
+  - venomPuddlePrefab: {fileID: 8719662658066098995, guid: 6b47f7f63d6d73e41adbf2ac22d9daaa, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

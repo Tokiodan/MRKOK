@@ -32,6 +32,7 @@ public class DisplayHotbarItems : MonoBehaviour
     {
         UpdateDisplay();
         SelectSlot();
+        SetAttack();
     }
 
     public void SelectSlot()
@@ -57,6 +58,30 @@ public class DisplayHotbarItems : MonoBehaviour
 
 
         // 4. execute the item on click
+    }
+
+    void SetAttack()
+    {
+        ItemObject item = inventory.database.GetItem[CurrentSelected.item.Id];
+        if (item.type == ItemType.Magic && item is MagicObject Spell)
+        {
+
+            // get the prefab with the attack from the item.
+            // add it to the player
+            Debug.Log("setting script");
+            MagicAttack spellScript = Spell.spellprefab.GetComponent<MagicAttack>();
+
+            if (PlayerController.FireMagic != spellScript.CastSpell)
+            {
+                Debug.Log("attack set");
+                PlayerController.cooldownDuration = Spell.cooldown;
+                PlayerController.FireMagic = spellScript.CastSpell;
+            }
+        }
+        else
+        {
+            PlayerController.FireMagic = null;
+        }
     }
 
     void UpdateSelectedSlot(GameObject obj)

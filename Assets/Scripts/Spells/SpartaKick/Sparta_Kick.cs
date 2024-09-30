@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpartaKick : MonoBehaviour
+public class SpartaKick : MonoBehaviour, MagicAttack
 {
     public GameObject FootPrefab;  // The foot prefab to be instantiated
     public float footOffsetDistance = 0.5f; // Distance below the camera
@@ -11,24 +11,15 @@ public class SpartaKick : MonoBehaviour
 
     private bool isCooldown = false; // Track whether the cooldown is active
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Ensure the kick input is correctly defined and not on cooldown
-        if ((Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) && !isCooldown) 
-        {
-            CreateFoot();
-        }
-    }
 
-    void CreateFoot()
+    public void CastSpell()
     {
         // Get the camera's position and rotation
         Camera mainCamera = Camera.main;
 
         // Calculate the position for the foot slightly below and in front of the camera
-        Vector3 footSpawnPosition = mainCamera.transform.position 
-                                    - mainCamera.transform.up * footOffsetDistance 
+        Vector3 footSpawnPosition = mainCamera.transform.position
+                                    - mainCamera.transform.up * footOffsetDistance
                                     + mainCamera.transform.forward * footForwardDistance;
 
         // Get the camera's rotation

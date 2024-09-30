@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d543702ada85bb8498ef6aa8a6941ac3, type: 3}
-  m_Name: venomBomb
+  m_Name: FireBall
   m_EditorClassIdentifier: 
-  Id: 3
-  itemImg: {fileID: 21300000, guid: e809059ad71143342bdf7fc841bb8175, type: 3}
+  Id: 5
+  itemImg: {fileID: -9115315822010641240, guid: ef547a691fea31f498873b6847e7b3c8, type: 3}
   type: 2
-  Desc: 
+  Desc: A conjuring of mighty flames to take down the stronges foes
   attackDamage: 0
   cooldown: 5
-  spellprefab: {fileID: 6893987157168971237, guid: cc182092ee019ea45a0517b0134651ef, type: 3}
+  spellprefab: {fileID: 1724246995370693342, guid: 7e895b7460d46f84ba54a0f24a21d55b, type: 3}

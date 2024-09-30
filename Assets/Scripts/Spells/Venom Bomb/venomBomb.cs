@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VenomBomb : MagicAttack
+public class VenomBomb : MonoBehaviour, MagicAttack
 {
     public GameObject venomBombPrefab;   // Assign the Venom Bomb prefab in the Inspector
     public GameObject venomPuddlePrefab; // Assign the Venom Puddle prefab in the Inspector
@@ -19,27 +19,11 @@ public class VenomBomb : MagicAttack
         lastSpawnTime = -cooldownDuration; // Initialize so the player can spawn right away
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Check if the player presses the '5' key and the cooldown has passed
-        if (Input.GetKeyDown(KeyCode.Alpha5) && Time.time >= lastSpawnTime + cooldownDuration)
-        {
-            // Spawn the Venom Bomb when pressing '5'
-            SpawnVenomBomb();
-
-            // Update the last spawn time
-            lastSpawnTime = Time.time;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            Debug.Log("Venom Bomb is on cooldown.");
-        }
-    }
-
     // Method to spawn and launch the Venom Bomb
-    void SpawnVenomBomb()
+    public void CastSpell()
     {
+        // sets the cooldown after casting.
+        PlayerController.lastSpawnTime = Time.time;
         // Get the main camera
         Camera mainCamera = Camera.main;
 
@@ -68,5 +52,6 @@ public class VenomBomb : MagicAttack
 
         // Destroy the Venom Bomb object after the collision
         Destroy(gameObject);
+
     }
 }

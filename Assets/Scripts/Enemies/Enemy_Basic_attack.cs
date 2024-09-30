@@ -10,6 +10,8 @@ public class Basic_attack : MonoBehaviour
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private float nextAttackTime = 0f;
+
+    // This makes absolutely no fucking sense LMFAO -z
     [SerializeField] private Collider Collider;
 
     private void Start()

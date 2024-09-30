@@ -31,6 +31,13 @@ public class PlayerController : MonoBehaviour
     public Vector3 normalScale = new Vector3(1, 1, 1);
     public Vector3 crouchScale = new Vector3(1, 0.5f, 1);
 
+    //this is some fould shit.
+    public delegate void MyDelegate();
+    public static MyDelegate FireMagic;
+
+    public static float cooldownDuration = 5.0f; // Cooldown time in seconds
+    public static float lastSpawnTime;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -41,6 +48,7 @@ public class PlayerController : MonoBehaviour
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
         moveSpeed = defaultMoveSpeed;
 
+        lastSpawnTime = -cooldownDuration; // Initialize so the player can spawn right away
     }
 
     // Update is called once per frame
@@ -55,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
         OpenInventory();
         SaveQuit();
+        MagicAttack();
     }
 
     void FixedUpdate()
@@ -64,6 +73,19 @@ public class PlayerController : MonoBehaviour
         CrouchCheck();
         JumpCheck();
         GroundCheck();
+    }
+
+    public void MagicAttack()
+    {
+        // check for G presss
+        if (Input.GetKeyDown(KeyCode.G) && Time.time >= lastSpawnTime + cooldownDuration)
+        {
+            //fires the current magic 
+
+            Debug.Log("Firing magic");
+            FireMagic?.Invoke();
+            // Update the last spawn time
+        }
     }
 
     public void OnTriggerEnter(Collider other)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class divinePillar : MonoBehaviour
+public class divinePillar : MonoBehaviour, MagicAttack
 {
     public GameObject aoeIndicatorPrefab; // For the indicator
     public GameObject aoeLightPrefab; // For the light beam
@@ -15,13 +15,13 @@ public class divinePillar : MonoBehaviour
     private bool isPlacingAoE = false;
     private bool hasDealtDamage = false; // Ensure damage is only dealt once
 
-    void Update()
-    {
-        HandleAoEInput();
-        UpdateCooldownTimer();
-    }
+    // void Update()
+    // {
+    //     HandleAoEInput();
+    //     UpdateCooldownTimer();
+    // }
 
-    void HandleAoEInput()
+    public void CastSpell()
     {
         if (Input.GetKeyDown(KeyCode.Alpha4) && !isPlacingAoE && cooldownTimer <= 0f)
         {
@@ -47,6 +47,9 @@ public class divinePillar : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Alpha4) && currentIndicator != null)
         {
+            // sets the cooldown after casting.
+            PlayerController.lastSpawnTime = Time.time;
+
             // Confirm the attack
             // Destroy the indicator
             Destroy(currentIndicator);

@@ -2356,7 +2356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8826028299656308802}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.12554236, z: -0, w: 0.99208826}
+  m_LocalRotation: {x: 0, y: 0.12554097, z: 0, w: 0.99208844}
   m_LocalPosition: {x: -390.01483, y: 352.07065, z: -942.95013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2464,8 +2464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackCooldown: 0
-  player: {fileID: 0}
-  swordCollider: {fileID: 833942411784081528}
+  player: {fileID: 8826028299656308802}
+  Collider: {fileID: 833942411784081528}
 --- !u!114 &1272259518344015812
 MonoBehaviour:
   m_ObjectHideFlags: 0

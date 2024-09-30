@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class Fireball : MonoBehaviour, MagicAttack
 {
     public float speed;                    // Speed of the fireball
     public GameObject fireballPrefab;      // Fireball prefab to spawn
@@ -11,21 +11,24 @@ public class Fireball : MonoBehaviour
 
     private bool isCooldown = false;       // Track whether the cooldown is active
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Check if the fireball input is pressed and if it's ready to fire
-        if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && !isCooldown)
-        {
-            // Spawn the fireball
-            SpawnFireball();
-            // Start the cooldown
-            StartCoroutine(FireballCooldown());
-        }
-    }
+    // // Update is called once per frame
+    // void Update()
+    // {
+    //     // Check if the fireball input is pressed and if it's ready to fire
+    //     if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && !isCooldown)
+    //     {
+    //         // Spawn the fireball
+    //         SpawnFireball();
+    //         // Start the cooldown
+    //         StartCoroutine(FireballCooldown());
+    //     }
+    // }
 
-    void SpawnFireball()
+    public void CastSpell()
     {
+        // sets casting cooldown.
+        PlayerController.lastSpawnTime = Time.time;
+
         // Get the main camera
         Camera mainCamera = Camera.main;
 
@@ -34,6 +37,7 @@ public class Fireball : MonoBehaviour
 
         // Instantiate the fireball at the calculated position with the camera's rotation
         GameObject spawnedFireball = Instantiate(fireballPrefab, spawnPosition, mainCamera.transform.rotation);
+        // _ = StartCoroutine(FireballCooldown(spawnedFireball));
 
         // Add velocity to the fireball to make it move forward
         Rigidbody rb = spawnedFireball.GetComponent<Rigidbody>();
@@ -41,12 +45,14 @@ public class Fireball : MonoBehaviour
         {
             rb.velocity = mainCamera.transform.forward * speed; // Set velocity in the direction the camera is facing
         }
+
     }
 
-    private IEnumerator FireballCooldown()
+    private IEnumerator FireballCooldown(GameObject obj)
     {
-        isCooldown = true; // Activate cooldown
+        Debug.Log("Enum started");
         yield return new WaitForSeconds(cooldownDuration); // Wait for the cooldown duration
-        isCooldown = false; // Reset the cooldown
+        Debug.Log("object Destroyed");
+        Destroy(obj);
     }
 }

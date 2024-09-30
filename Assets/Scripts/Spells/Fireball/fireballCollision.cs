@@ -5,18 +5,14 @@ using UnityEngine;
 public class FireballCollision : MonoBehaviour
 {
     public int damage = 10; // The amount of damage the fireball does
-
+    public int LifeTime = 3;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(gameObject, LifeTime);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,7 +29,7 @@ public class FireballCollision : MonoBehaviour
             Debug.Log("Collided with: " + other.gameObject.name + " (Enemy)");
             // Deal damage to the enemy
             ApplyDamage(other);
-            
+
             // Start coroutine to handle the delayed destruction
             StartCoroutine(HandleCollisionWithEnemy(other));
         }
