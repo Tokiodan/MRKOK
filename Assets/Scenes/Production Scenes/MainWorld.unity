@@ -370,7 +370,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b57394a5f2f3e08458fd6b0d04fe8be8, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &118507384
 Transform:
@@ -395,6 +395,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5502013057446430424, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
+      propertyPath: groundCheckDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7381831908459665312, guid: dd0c8fcafdc464e41b7b0a9457904aeb, type: 3}
       propertyPath: m_Name
       value: Player
@@ -496,6 +500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup_rock
       objectReference: {fileID: 0}
+    - target: {fileID: 6187284149267076157, guid: efa79105eeaf82747b059c8497d69a19, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 006863e0f65c42c439d697af59c3b3a3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -645,6 +653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup_rock
       objectReference: {fileID: 0}
+    - target: {fileID: 6187284149267076157, guid: efa79105eeaf82747b059c8497d69a19, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: be2ef029ce5edaa49aedec98c020838e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

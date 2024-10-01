@@ -42,10 +42,10 @@ public class FireballCollision : MonoBehaviour
     private void ApplyDamage(Collider enemy)
     {
         // Get the EnemyHealth component and apply damage
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        Entity enemyHealth = enemy.GetComponent<Entity>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage); // Apply damage to the enemy
+            enemyHealth.TakeMagicDmg(damage); // Apply damage to the enemy
             Debug.Log("Damaged enemy: " + enemy.gameObject.name + " for " + damage + " damage.");
         }
         else
@@ -61,7 +61,7 @@ public class FireballCollision : MonoBehaviour
         if (enemyRigidbody != null)
         {
             Vector3 pushbackDirection = (enemy.transform.position - transform.position).normalized;
-            enemyRigidbody.AddForce(pushbackDirection * 10f, ForceMode.Impulse); // Adjust the force as necessary
+            enemyRigidbody.AddForce(pushbackDirection * 100f, ForceMode.Impulse); // Adjust the force as necessary
         }
 
         // Wait for a short duration before destroying the fireball

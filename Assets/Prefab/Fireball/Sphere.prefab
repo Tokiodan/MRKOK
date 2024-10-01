@@ -110,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5122073143964993160
 Transform:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
@@ -252,12 +252,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5475726
+  m_Center: {x: 0, y: 0, z: 0.047572628}
 --- !u!54 &363198707294931409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e187d2269cfc17b4bbeff8a34d501403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  LifeTime: 3
 --- !u!82 &8686857389434267526
 AudioSource:
   m_ObjectHideFlags: 0

@@ -29,10 +29,17 @@ public class divinePillar : MonoBehaviour, MagicAttack
     // This fucking sucked to find out and I am so sad it took me this long. -Z
     public IEnumerator iDontWantToLiveAnymore()
     {
+        // instantly exists out of Enum if this spell is already active
+        if (currentIndicator != null)
+        {
+            yield break;
+        }
+
         // I will lose my mind because of these variables I have to reset every time. -Z
         hasDealtDamage = false;
         isPlacingAoE = false;
         currentIndicator = null;
+
 
         while (cooldownTimer == false)
         {
@@ -69,6 +76,8 @@ public class divinePillar : MonoBehaviour, MagicAttack
                     // Confirm the attack
                     // Destroy the indicator
                     Destroy(currentIndicator);
+                    //removes indicator object just incase.
+                    currentIndicator = null;
                     isPlacingAoE = false;
 
                     // Create the light beam with a collider to handle damage
