@@ -59,7 +59,7 @@ public class PlayerController : Entity
         SpeedControl();
         SprintCheck();
         // CrouchCheck();
-        // JumpCheck();
+        JumpCheck();
 
         OpenInventory();
         SaveQuit();
@@ -70,7 +70,7 @@ public class PlayerController : Entity
     {
         MovePlayer();
         CrouchCheck();
-        JumpCheck();
+        // JumpCheck();
         GroundCheck();
     }
 
@@ -169,18 +169,10 @@ public class PlayerController : Entity
 
     private void GroundCheck()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance))
-        {
-            if (hit.collider != null)
-            {
-                isGrounded = true;
-            }
-        }
-        else
-        {
-            isGrounded = false;
-        }
+        // shorter version? -Z
+        // tells us it is grounded when the gameobject is lower or equal to the yPos-grouddistance.
+        isGrounded = KOKHelper.FloorPos(gameObject) >= transform.position.y - groundCheckDistance;
+
     }
 
 
@@ -192,17 +184,10 @@ public class PlayerController : Entity
 
     private void JumpCheck()
     {
-        // // prevent jump
-        // if (isCrouched)
-        // {
-        //     return;
-        // }
-
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouched)
         {
             Vector3 currentVelocity = rb.velocity;
             rb.velocity = new Vector3(currentVelocity.x, jumpForce, currentVelocity.z);
-            isGrounded = false;
         }
     }
 

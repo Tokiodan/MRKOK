@@ -2401,7 +2401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   viewRadius: 30
-  viewAngle: 146
+  viewAngle: 100
   playerMask:
     serializedVersion: 2
     m_Bits: 256

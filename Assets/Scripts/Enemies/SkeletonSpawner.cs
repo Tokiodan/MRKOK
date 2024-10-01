@@ -38,12 +38,10 @@ public class SkeletonSpawner : MonoBehaviour
     {
         Vector3 randomDirection = Random.insideUnitSphere * spawnRadius;
 
-        // FIXME dit gaat niet werken watn de map is oneven. 
-        // Dit kan opgelost worden door een findfloor functie volgensmij
-        //Mogelijk even kijken naar een raycast draw om te kijken waar de vloer is.
-        // Ik wil dit miss opakken om er een static method van te maken.
-        randomDirection.y = KOKHelper.FloorPos(gameObject);  // Keep it on the ground level
-        return transform.position + randomDirection; // Spawn around the spawner's position
+        // Fixed. -Z
+        randomDirection.y = 0;  // Keep it on the ground level
+        transform.position += randomDirection;
+        return new Vector3(transform.position.x, KOKHelper.FloorPos(gameObject), transform.position.z); // Spawn around the spawner's position
     }
 
     // Draw the spawn radius in the Scene view using Gizmos
