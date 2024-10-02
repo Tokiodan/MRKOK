@@ -606,11 +606,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668f3861607c9c14386516abbb690313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 100
+  Resistance: 0
+  MagResistance: 0
   defaultMoveSpeed: 5
   sprintSpeedMultiplier: 1.8
   crouchSpeedMultiplier: 0.6
   jumpForce: 10
-  groundCheckDistance: 1.1
+  groundCheckDistance: 1.5
   orientation: {fileID: 170746544807608587}
   inventory: {fileID: 11400000, guid: 882e9a3bfeba2384b8cff7faa2ae1f77, type: 2}
   UI_VISIBLE_CANVAS: {fileID: 0}
@@ -929,6 +932,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -11.900002
       objectReference: {fileID: 0}
+    - target: {fileID: 5345075031491821267, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
+      propertyPath: TextPrefab
+      value: 
+      objectReference: {fileID: 8640335270283984248, guid: 4f3e8b50f695b564498622912b2a4160, type: 3}
+    - target: {fileID: 5345075031491821267, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
+      propertyPath: detailPanel
+      value: 
+      objectReference: {fileID: 1418200019690211508}
     - target: {fileID: 7520682236594927863, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
       propertyPath: m_Name
       value: Inventory
