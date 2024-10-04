@@ -6,14 +6,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float defaultMoveSpeed;
     public float sprintSpeedMultiplier;
     public float crouchSpeedMultiplier = 0.6f;
     public float jumpForce = 10f;
     private bool isGrounded;
     public float groundCheckDistance = 1.1f;
-    float moveSpeed;
+
+    private float baseMoveSpeed; // This will hold the default speed
+    public float MoveSpeed { get; private set; } // Public property for MoveSpeed
+
     float horizontalInput;
     float verticalInput;
 
@@ -31,27 +33,21 @@ public class PlayerController : MonoBehaviour
     public Vector3 normalScale = new Vector3(1, 1, 1);
     public Vector3 crouchScale = new Vector3(1, 0.5f, 1);
 
-
-    // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
-        moveSpeed = defaultMoveSpeed;
-
+        baseMoveSpeed = defaultMoveSpeed; // Store the default speed
+        MoveSpeed = baseMoveSpeed; // Initialize MoveSpeed
     }
 
-    // Update is called once per frame
     void Update()
     {
         PlayerSound();
         MyInput();
         SpeedControl();
-        // SprintCheck();
-        // CrouchCheck();
-        // JumpCheck();
 
         OpenInventory();
         SaveQuit();
@@ -99,8 +95,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -111,14 +105,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouched)
         {
-            moveSpeed = defaultMoveSpeed * sprintSpeedMultiplier;
+            MoveSpeed = baseMoveSpeed * sprintSpeedMultiplier; // Set sprint speed
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            moveSpeed = defaultMoveSpeed;
+            MoveSpeed = baseMoveSpeed; // Reset to base speed
         }
     }
-
 
     private void CrouchCheck()
     {
@@ -127,19 +120,17 @@ public class PlayerController : MonoBehaviour
             if (isCrouched)
             {
                 transform.localScale = normalScale;
-                moveSpeed = defaultMoveSpeed;
+                MoveSpeed = baseMoveSpeed; // Reset to base speed
                 isCrouched = false;
             }
             else
             {
                 transform.localScale = crouchScale;
-                moveSpeed = defaultMoveSpeed * crouchSpeedMultiplier; // slowed down
+                MoveSpeed = baseMoveSpeed * crouchSpeedMultiplier; // Set crouch speed
                 isCrouched = true;
             }
         }
     }
-
-
 
     private void GroundCheck()
     {
@@ -157,21 +148,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
+        rb.AddForce(moveDirection * MoveSpeed * 10f, ForceMode.Force);
     }
 
     private void JumpCheck()
     {
-        // // prevent jump
-        // if (isCrouched)
-        // {
-        //     return;
-        // }
-
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouched)
         {
             Vector3 currentVelocity = rb.velocity;
@@ -184,24 +168,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > MoveSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * MoveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-        //  else
-        // {
-        //  float smoothFactor = 0.1f;
-        //    rb.velocity = new Vector3(flatVel.x * (1 - smoothFactor), rb.velocity.y, flatVel.z * (1 - smoothFactor));
-        // }
     }
-
 
     private void PlayerSound()
     {
-
-
-        if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
+        if (sfxAudio == null && canPlayWalkSFX && (Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput)) > 0)
         {
             canPlayWalkSFX = false;
             AudioSource a = AudioManagerSO.PlaySFXLoop("Walking", transform.position, 0.5f);
@@ -209,12 +185,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    // destroys the walkSFX when player stops
     private IEnumerator WaitforStop(AudioSource SFX)
     {
-        Debug.Log("waiting until standing still...");
-        yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
+        yield return new WaitUntil(() => (Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;
     }
@@ -231,4 +204,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Method to set the base move speed from the SpeedController
+    public void SetBaseMoveSpeed(float speed)
+    {
+        baseMoveSpeed = speed; // Update the speed from the SpeedController
+        MoveSpeed = baseMoveSpeed; // Ensure that MoveSpeed is also updated
+    }
 }
