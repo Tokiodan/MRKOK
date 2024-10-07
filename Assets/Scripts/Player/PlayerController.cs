@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public float groundCheckDistance = 1.1f;
 
     private float baseMoveSpeed; // This will hold the default speed
-    public float MoveSpeed { get; private set; } // Public property for MoveSpeed
+    public float MoveSpeed { get; private set; } // Public property for moveSpeed
 
     float horizontalInput;
     float verticalInput;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
         baseMoveSpeed = defaultMoveSpeed; // Store the default speed
-        MoveSpeed = baseMoveSpeed; // Initialize MoveSpeed
+        MoveSpeed = baseMoveSpeed; // Initialize moveSpeed
     }
 
     void Update()
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerSound()
     {
-        if (sfxAudio == null && canPlayWalkSFX && (Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput)) > 0)
+        if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
         {
             canPlayWalkSFX = false;
             AudioSource a = AudioManagerSO.PlaySFXLoop("Walking", transform.position, 0.5f);
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator WaitforStop(AudioSource SFX)
     {
-        yield return new WaitUntil(() => (Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput)) == 0);
+        yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;
     }
@@ -202,12 +202,5 @@ public class PlayerController : MonoBehaviour
         {
             inventory.Load();
         }
-    }
-
-    // Method to set the base move speed from the SpeedController
-    public void SetBaseMoveSpeed(float speed)
-    {
-        baseMoveSpeed = speed; // Update the speed from the SpeedController
-        MoveSpeed = baseMoveSpeed; // Ensure that MoveSpeed is also updated
     }
 }
