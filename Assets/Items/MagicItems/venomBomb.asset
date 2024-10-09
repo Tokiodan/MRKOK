@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d543702ada85bb8498ef6aa8a6941ac3, type: 3}
   m_Name: venomBomb
   m_EditorClassIdentifier: 
-  Id: 0
-  itemImg: {fileID: 0}
-  type: 0
+  Id: 3
+  itemImg: {fileID: 21300000, guid: e809059ad71143342bdf7fc841bb8175, type: 3}
+  type: 2
   Desc: 
   attackDamage: 0
-  cooldown: 0
+  cooldown: 5
+  spellprefab: {fileID: 6893987157168971237, guid: cc182092ee019ea45a0517b0134651ef, type: 3}

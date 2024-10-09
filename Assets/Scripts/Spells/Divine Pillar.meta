@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Spells/Divine Pillar.meta
 guid: a04a94469c7ceb845846d89c3d6729de
 folderAsset: yes
+========
+guid: f58d25b9e504a4f41ab4a71cf87c1845
+>>>>>>>> ItemDetails:Assets/SimpleNaturePack/SimpleNaturePack_2020.3_URP_v1.24.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

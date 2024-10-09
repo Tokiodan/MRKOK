@@ -25,8 +25,12 @@ public class DisplayInventory : MonoBehaviour
 
     public GameObject ItemPrefab;
     public GameObject TextPrefab;
-    public int Detail_Offset_Y;
+    [Range(100, -100)]
+    public int Detail_Offset_Y = 100;
+    public int InbetweenOffset = 10;
     public int Detail_Offset_X;
+
+    public GameObject detailPanel;
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
 
     void Start()
@@ -43,18 +47,38 @@ public class DisplayInventory : MonoBehaviour
     //displays data of an item. (REQUIRES ITEM TO HAVE ITEMDETAILS() )
     public void DisplayDetails(Item item)
     {
-        // Dictionary<string, object> itemData = inventory.database.GetItem[item.Id].ItemDetails();
-        // itemData["name"] = item.Name;
+        Dictionary<string, object> itemData = inventory.database.GetItem[item.Id].ItemDetails();
+        itemData["name"] = item.Name;
 
-        // int prevOffset = 0;
-        // foreach (var data in itemData)
-        // {
-        //     // instantiate text prefab.
-        //     var textpref = Instantiate(TextPrefab);
-        //     // add the data
-        //     // save the offset
-        //     // go next
-        // }
+        float prevOffset = 0;
+        foreach (var data in itemData)
+        {
+            // instantiate text prefab.
+            var textpref = Instantiate(TextPrefab, Vector3.zero, quaternion.identity, detailPanel.transform);
+            textpref.transform.localPosition = new Vector3(0, Detail_Offset_Y - prevOffset, 0);
+            textpref.transform.localScale = new Vector3(1, 1, 1);
+
+            // add the data
+            var textMesh = textpref.GetComponent<TextMeshProUGUI>();
+            textMesh.GetComponent<TextMeshProUGUI>().text = data.Key.ToString() + ": " + data.Value.ToString();
+
+            // save the offset
+            textMesh.ForceMeshUpdate();
+            Vector2 textSize = textMesh.GetPreferredValues();
+            Debug.Log(data.Key.ToString() + "preffered Y is " + textSize.y);
+            prevOffset += textSize.y + InbetweenOffset;
+
+            // go next
+        }
+    }
+
+    public void DeleteDisplay()
+    {
+        // deletes all text meshes, because i'm lazy and variable size.
+        foreach (Transform child in detailPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     //The reason why we are splitting the image and the item data itself is so the two are not interconnected. 
@@ -121,6 +145,8 @@ public class DisplayInventory : MonoBehaviour
     {
         mouseItem.hoverObj = null;
         mouseItem.hoverItem = null;
+
+        DeleteDisplay();
     }
 
     public void OnDragStart(GameObject obj)

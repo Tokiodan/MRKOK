@@ -8,7 +8,8 @@ public class SkeletonAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            player playerScript = other.GetComponent<player>();
+            Debug.Log("Comparing...");
+            PlayerController playerScript = other.GetComponent<PlayerController>();
             if (playerScript != null)
             {
                 playerScript.TakeDamage(damage);

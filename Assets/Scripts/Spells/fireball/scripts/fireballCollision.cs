@@ -5,18 +5,14 @@ using UnityEngine;
 public class FireballCollision : MonoBehaviour
 {
     public int damage = 10; // The amount of damage the fireball does
-
+    public int LifeTime = 3;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(gameObject, LifeTime);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,7 +29,7 @@ public class FireballCollision : MonoBehaviour
             Debug.Log("Collided with: " + other.gameObject.name + " (Enemy)");
             // Deal damage to the enemy
             ApplyDamage(other);
-            
+
             // Start coroutine to handle the delayed destruction
             StartCoroutine(HandleCollisionWithEnemy(other));
         }
@@ -46,10 +42,10 @@ public class FireballCollision : MonoBehaviour
     private void ApplyDamage(Collider enemy)
     {
         // Get the EnemyHealth component and apply damage
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        Entity enemyHealth = enemy.GetComponent<Entity>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage); // Apply damage to the enemy
+            enemyHealth.TakeMagicDmg(damage); // Apply damage to the enemy
             Debug.Log("Damaged enemy: " + enemy.gameObject.name + " for " + damage + " damage.");
         }
         else
@@ -65,7 +61,7 @@ public class FireballCollision : MonoBehaviour
         if (enemyRigidbody != null)
         {
             Vector3 pushbackDirection = (enemy.transform.position - transform.position).normalized;
-            enemyRigidbody.AddForce(pushbackDirection * 10f, ForceMode.Impulse); // Adjust the force as necessary
+            enemyRigidbody.AddForce(pushbackDirection * 100f, ForceMode.Impulse); // Adjust the force as necessary
         }
 
         // Wait for a short duration before destroying the fireball

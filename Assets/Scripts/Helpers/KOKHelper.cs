@@ -9,9 +9,9 @@ public class KOKHelper : MonoBehaviour
         Ray floorCheck = new Ray(Entity.transform.position, Vector3.down);
         RaycastHit hitData;
 
-        if (Physics.Raycast(floorCheck, out hitData, 100f, LayerMask.NameToLayer("Default")))
+        if (Physics.Raycast(floorCheck, out hitData, 100f, LayerMask.GetMask("Terrain")))
         {
-            return hitData.normal.y;
+            return hitData.point.y;
         }
         return 0f;
     }

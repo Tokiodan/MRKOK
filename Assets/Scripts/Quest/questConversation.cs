@@ -87,6 +87,7 @@ public class QuestConversation : MonoBehaviour
         if (other.CompareTag("Player"))  // Ensure the tag is "Player"
         {
             isPlayerInRange = true;
+            Debug.Log("Player is in range");
 
             // Find the QuestIconCreator attached to the civilian the player interacts with
             questIconCreator = GetComponent<QuestIconCreator>();

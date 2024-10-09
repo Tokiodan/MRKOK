@@ -7,6 +7,7 @@ public class TerrainGeneration : MonoBehaviour
 {
     [SerializeField] private Vector2 mapSize;
     public GameObject rockPrefab;
+    public GameObject GrassPrefab;
     private float floor = 0.8f;
     private float ceiling = 1f;
 
@@ -37,6 +38,12 @@ public class TerrainGeneration : MonoBehaviour
                     //4. put positions into a new array
                     // positions.Add(rock);
                     // GameObject rock =
+                }
+                else if (noiseMap[i, j] > 0.1f && noiseMap[i, j] < 0.3f)
+                {
+                    int posX = i * 10;
+                    int posY = j * 10;
+                    Instantiate(GrassPrefab, new Vector3(posX, terrain.SampleHeight(new Vector3(posX, 0, posY)), posY), Quaternion.identity);
                 }
             }
         }

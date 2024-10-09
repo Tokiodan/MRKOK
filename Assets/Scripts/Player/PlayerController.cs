@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Entity
 {
 
     public float defaultMoveSpeed;
@@ -31,6 +31,13 @@ public class PlayerController : MonoBehaviour
     public Vector3 normalScale = new Vector3(1, 1, 1);
     public Vector3 crouchScale = new Vector3(1, 0.5f, 1);
 
+    //this is some fould shit.
+    public delegate void MyDelegate();
+    public static MyDelegate FireMagic;
+
+    public static float cooldownDuration = 5.0f; // Cooldown time in seconds
+    public static float lastSpawnTime;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -41,6 +48,7 @@ public class PlayerController : MonoBehaviour
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
         moveSpeed = defaultMoveSpeed;
 
+        lastSpawnTime = -cooldownDuration; // Initialize so the player can spawn right away
     }
 
     // Update is called once per frame
@@ -49,21 +57,39 @@ public class PlayerController : MonoBehaviour
         PlayerSound();
         MyInput();
         SpeedControl();
-        // SprintCheck();
+        SprintCheck();
         // CrouchCheck();
-        // JumpCheck();
+        JumpCheck();
 
         OpenInventory();
         SaveQuit();
+        MagicAttack();
     }
 
     void FixedUpdate()
     {
         MovePlayer();
-        SprintCheck();
         CrouchCheck();
-        JumpCheck();
+        // JumpCheck();
         GroundCheck();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Debug.Log("hit for dmg amount " + damage);
+    }
+
+    public void MagicAttack()
+    {
+        // check for G presss
+        if (Input.GetKeyDown(KeyCode.G) && Time.time >= lastSpawnTime + cooldownDuration)
+        {
+            //fires the current magic 
+
+            Debug.Log("Firing magic");
+            FireMagic?.Invoke();
+            // Update the last spawn time
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -166,17 +192,10 @@ public class PlayerController : MonoBehaviour
 
     private void JumpCheck()
     {
-        // // prevent jump
-        // if (isCrouched)
-        // {
-        //     return;
-        // }
-
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouched)
         {
             Vector3 currentVelocity = rb.velocity;
             rb.velocity = new Vector3(currentVelocity.x, jumpForce, currentVelocity.z);
-            isGrounded = false;
         }
     }
 
@@ -189,11 +208,6 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-        //  else
-        // {
-        //  float smoothFactor = 0.1f;
-        //    rb.velocity = new Vector3(flatVel.x * (1 - smoothFactor), rb.velocity.y, flatVel.z * (1 - smoothFactor));
-        // }
     }
 
 
