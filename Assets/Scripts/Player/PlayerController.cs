@@ -169,10 +169,18 @@ public class PlayerController : Entity
 
     private void GroundCheck()
     {
-        // shorter version? -Z
-        // tells us it is grounded when the gameobject is lower or equal to the yPos-grouddistance.
-        isGrounded = KOKHelper.FloorPos(gameObject) >= transform.position.y - groundCheckDistance;
-
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance))
+        {
+            if (hit.collider != null)
+            {
+                isGrounded = true;
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
 
@@ -200,11 +208,6 @@ public class PlayerController : Entity
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-        //  else
-        // {
-        //  float smoothFactor = 0.1f;
-        //    rb.velocity = new Vector3(flatVel.x * (1 - smoothFactor), rb.velocity.y, flatVel.z * (1 - smoothFactor));
-        // }
     }
 
 

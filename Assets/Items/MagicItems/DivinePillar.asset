@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d543702ada85bb8498ef6aa8a6941ac3, type: 3}
   m_Name: DivinePillar
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 6
   itemImg: {fileID: 8591947561623746173, guid: 9e2bd63adb3a1c049a5e48831e2b254a, type: 3}
   type: 2
   Desc: 

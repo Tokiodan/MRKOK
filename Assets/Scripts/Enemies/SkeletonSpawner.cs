@@ -41,6 +41,7 @@ public class SkeletonSpawner : MonoBehaviour
         // Fixed. -Z
         randomDirection.y = 0;  // Keep it on the ground level
         transform.position += randomDirection;
+        //raycast that checks the floor location.
         return new Vector3(transform.position.x, KOKHelper.FloorPos(gameObject), transform.position.z); // Spawn around the spawner's position
     }
 

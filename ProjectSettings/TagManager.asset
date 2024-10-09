@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Skeleton
   - Enemy
+  - QuestGiver1
+  - QuestGiver2
+  - QuestGiver3
   layers:
   - Default
   - TransparentFX
