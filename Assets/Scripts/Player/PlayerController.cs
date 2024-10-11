@@ -6,14 +6,16 @@ using UnityEngine;
 
 public class PlayerController : Entity
 {
-
     public float defaultMoveSpeed;
     public float sprintSpeedMultiplier;
     public float crouchSpeedMultiplier = 0.6f;
     public float jumpForce = 10f;
     private bool isGrounded;
     public float groundCheckDistance = 1.1f;
-    float moveSpeed;
+
+    private float baseMoveSpeed; // This will hold the default speed
+    public float MoveSpeed { get; private set; } // Public property for moveSpeed
+
     float horizontalInput;
     float verticalInput;
 
@@ -46,12 +48,11 @@ public class PlayerController : Entity
         rb.freezeRotation = true;
         AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
-        moveSpeed = defaultMoveSpeed;
-
+        baseMoveSpeed = defaultMoveSpeed; // Store the default speed
+        MoveSpeed = baseMoveSpeed; // Initialize moveSpeed
         lastSpawnTime = -cooldownDuration; // Initialize so the player can spawn right away
     }
 
-    // Update is called once per frame
     void Update()
     {
         PlayerSound();
@@ -125,8 +126,6 @@ public class PlayerController : Entity
         }
     }
 
-
-
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -137,14 +136,13 @@ public class PlayerController : Entity
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouched)
         {
-            moveSpeed = defaultMoveSpeed * sprintSpeedMultiplier;
+            MoveSpeed = baseMoveSpeed * sprintSpeedMultiplier; // Set sprint speed
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            moveSpeed = defaultMoveSpeed;
+            MoveSpeed = baseMoveSpeed; // Reset to base speed
         }
     }
-
 
     private void CrouchCheck()
     {
@@ -153,19 +151,17 @@ public class PlayerController : Entity
             if (isCrouched)
             {
                 transform.localScale = normalScale;
-                moveSpeed = defaultMoveSpeed;
+                MoveSpeed = baseMoveSpeed; // Reset to base speed
                 isCrouched = false;
             }
             else
             {
                 transform.localScale = crouchScale;
-                moveSpeed = defaultMoveSpeed * crouchSpeedMultiplier; // slowed down
+                MoveSpeed = baseMoveSpeed * crouchSpeedMultiplier; // Set crouch speed
                 isCrouched = true;
             }
         }
     }
-
-
 
     private void GroundCheck()
     {
@@ -183,11 +179,10 @@ public class PlayerController : Entity
         }
     }
 
-
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
+        rb.AddForce(moveDirection * MoveSpeed * 10f, ForceMode.Force);
     }
 
     private void JumpCheck()
@@ -203,18 +198,15 @@ public class PlayerController : Entity
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > MoveSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * MoveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
 
-
     private void PlayerSound()
     {
-
-
         if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
         {
             canPlayWalkSFX = false;
@@ -223,11 +215,8 @@ public class PlayerController : Entity
         }
     }
 
-
-    // destroys the walkSFX when player stops
     private IEnumerator WaitforStop(AudioSource SFX)
     {
-        Debug.Log("waiting until standing still...");
         yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
         SFX.Stop();
         canPlayWalkSFX = true;
@@ -244,5 +233,4 @@ public class PlayerController : Entity
             inventory.Load();
         }
     }
-
 }

@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,29 +7,33 @@ using TMPro;
 public class ExperienceManager : MonoBehaviour
 {
     [Header("Experience")]
-    [SerializeField] AnimationCurve experienceCurve;
+    [SerializeField] private AnimationCurve experienceCurve;
 
-    int currentLevel, totalExperience;
-    int previousLevelsExperience, nextLevelsExperience;
+    private int currentLevel = 1;
+    private int totalExperience = 0;
+    private int previousLevelsExperience, nextLevelsExperience;
 
     [Header("Interface")]
-    [SerializeField] TextMeshProUGUI levelText;
-    [SerializeField] TextMeshProUGUI experienceText;
-    [SerializeField] Image experienceFill;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI experienceText;
+    [SerializeField] private Image experienceFill;
+
+  
+    public event Action<int> OnLevelUp;
 
     void Start()
     {
         UpdateLevel();
     }
 
-   /* void Update() 
+    void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             AddExperience(5);
         }
-    } */
-
+    }
 
     public void AddExperience(int amount)
     {
@@ -38,29 +42,32 @@ public class ExperienceManager : MonoBehaviour
         UpdateInterface();
     }
 
-    void CheckForLevelUp()
+    private void CheckForLevelUp()
     {
-        if(totalExperience >= nextLevelsExperience)
+      
+        if (totalExperience >= nextLevelsExperience)
         {
-            currentLevel++;
-            UpdateLevel();
-
-            
+            currentLevel++;  
+            OnLevelUp?.Invoke(currentLevel);  
+            UpdateLevel(); 
         }
     }
 
-    void UpdateLevel()
+    private void UpdateLevel()
     {
-        previousLevelsExperience = (int)experienceCurve.Evaluate(currentLevel);
-        nextLevelsExperience = (int)experienceCurve.Evaluate(currentLevel + 1);
-        UpdateInterface();
+        
+        previousLevelsExperience = (int)experienceCurve.Evaluate(currentLevel - 1);
+        nextLevelsExperience = (int)experienceCurve.Evaluate(currentLevel);
+        UpdateInterface();    
     }
 
-    void UpdateInterface()
+    private void UpdateInterface()
     {
+       
         int start = totalExperience - previousLevelsExperience;
-        int end = nextLevelsExperience - previousLevelsExperience; 
+        int end = nextLevelsExperience - previousLevelsExperience;
 
+      
         levelText.text = currentLevel.ToString();
         experienceText.text = start + " exp / " + end + " exp";
         experienceFill.fillAmount = (float)start / (float)end;
