@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1724246995370693342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22775da01ae6c19499af825c08fe7bee, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ef6c62e6226e354283244f80dd1fd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
   fireballPrefab: {fileID: 8298188187643991212, guid: d06f3b545fb2bfc42b3b6b5bf39770b8, type: 3}
   spawnOffsetDistance: 2
   cooldownDuration: 5

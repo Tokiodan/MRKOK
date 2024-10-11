@@ -12,6 +12,7 @@ public class VenomPuddle : MonoBehaviour
     // Called when another collider enters the trigger
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name + " should be in range");
         if (other.CompareTag("Enemy") && !enemiesInPuddle.Contains(other.gameObject))
         {
             // Add the enemy to the list if it has the "Enemy" tag and start damaging them
