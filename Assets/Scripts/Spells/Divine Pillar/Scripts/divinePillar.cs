@@ -1,88 +1,100 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class DivinePillar : Spell
+public class divinePillar : MonoBehaviour, MagicAttack
 {
     public GameObject aoeIndicatorPrefab; // For the indicator
     public GameObject aoeLightPrefab; // For the light beam
-    public float aoeDuration = 3f; // Duration of the AoE effect
+    public float cooldownDuration = 5f; // Duration of the cooldown in seconds
     public int damageAmount = 20; // Amount of damage to deal
 
+    private bool cooldownTimer = false; // Changed to a bool bcs I cba to make a new one -Z
     private GameObject currentIndicator;
     private Vector3 targetPosition;
-    private bool isPlacingAoE = false;
+    [SerializeField] private bool isPlacingAoE = false;
+    private bool hasDealtDamage = false; // Ensure damage is only dealt once
 
-    private void Awake()
+    public void CastSpell()
     {
-        spellID = "DivinePillar"; // Unique identifier for the spell
+        // this is also something that should have been an uneccesary headache. -Z
+        //we should think next time about how it intergrates with our main scene. -Z
+        CoroutineManager.Instance.StartManagedCoroutine(iDontWantToLiveAnymore());
     }
 
-    void Update()
+    // NEVER. MAKE. ME. DO. THIS. AGAIN. -Z
+    // So basically, every time we start a routine like this. it will change the variables within the prefab. EVERY. SINGLE. TIME.-Z
+    // thus I had to make the Ienumerator make them reset properly EVERY. SINGLE. TIME. -Z
+    // This fucking sucked to find out and I am so sad it took me this long. -Z
+    public IEnumerator iDontWantToLiveAnymore()
     {
-        HandleAoEInput();
-    }
-
-    void HandleAoEInput()
-    {
-        SpellManager spellManager = FindObjectOfType<SpellManager>();
-
-        // Check if the spell is on cooldown
-        if (spellManager.IsSpellOnCooldown(spellID)) return;
-
-        // Get the key from the SpellManager instead of hardcoding it
-        if (Input.GetKeyDown(GetKeyMapping()) && !isPlacingAoE)
+        // instantly exists out of Enum if this spell is already active
+        if (currentIndicator != null)
         {
-            // Create the indicator
-            currentIndicator = Instantiate(aoeIndicatorPrefab, Vector3.zero, Quaternion.identity);
-            isPlacingAoE = true;
+            yield break;
         }
 
-        if (isPlacingAoE && currentIndicator != null)
-        {
-            // Follow the mouse position to move the indicator
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        // I will lose my mind because of these variables I have to reset every time. -Z
+        hasDealtDamage = false;
+        isPlacingAoE = false;
+        currentIndicator = null;
 
-            if (Physics.Raycast(ray, out hit))
+
+        while (cooldownTimer == false)
+        {
+            if (!isPlacingAoE)
             {
-                // Update the indicator position but save the target position
-                targetPosition = new Vector3(hit.point.x, -0.99f, hit.point.z);
-                currentIndicator.transform.position = targetPosition; // Keep the indicator above the ground
+                isPlacingAoE = true;
+                Debug.Log("indicator");
+                // Create the indicator
+                currentIndicator = Instantiate(aoeIndicatorPrefab, Vector3.zero, Quaternion.identity);
+                hasDealtDamage = false; // Reset damage flag for a new cast
             }
-        }
 
-        // Cast the spell when the key is released
-        if (isPlacingAoE && Input.GetKeyUp(GetKeyMapping()))
-        {
-            // Destroy the indicator
-            Destroy(currentIndicator);
-            isPlacingAoE = false;
-
-            // Create the light beam with a collider to handle damage
-            GameObject aoeLight = Instantiate(aoeLightPrefab, targetPosition, Quaternion.identity);
-            Destroy(aoeLight, aoeDuration); // Remove the light beam after AoE duration
-
-            // Inform the SpellManager to start the cooldown
-            spellManager.StartCooldown(spellID, cooldownDuration);
-        }
-    }
-
-    // Function to get the assigned key from SpellManager
-    private KeyCode GetKeyMapping()
-    {
-        SpellManager spellManager = FindObjectOfType<SpellManager>();
-        foreach (var mapping in spellManager.spellMappings)
-        {
-            if (mapping.spell == this)
+            if (isPlacingAoE && currentIndicator != null)
             {
-                return mapping.key;
-            }
-        }
-        return KeyCode.None; // Default if not found
-    }
+                Debug.Log("follow cam");
+                // Follow the mouse position to move the indicator
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-    public override void CastSpell(Vector3 spawnPosition, Quaternion spawnRotation)
-    {
-        // The actual spell casting logic is handled in HandleAoEInput
+                if (Physics.Raycast(ray, out hit))
+                {
+                    // Update the indicator position but save the target position
+                    targetPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+                    currentIndicator.transform.position = targetPosition; // Keep the indicator above the ground
+                }
+
+                // just an confirmation keybind. So we can double confirm the attack.
+                if (Input.GetKeyDown(KeyCode.Y) && currentIndicator != null)
+                {
+                    Debug.Log("confirmed. attack now!");
+                    // sets the cooldown after casting.
+                    PlayerController.lastSpawnTime = Time.time;
+
+                    // Confirm the attack
+                    // Destroy the indicator
+                    Destroy(currentIndicator);
+                    //removes indicator object just incase.
+                    currentIndicator = null;
+                    isPlacingAoE = false;
+
+                    // Create the light beam with a collider to handle damage
+                    GameObject aoeLight = Instantiate(aoeLightPrefab, targetPosition, Quaternion.identity);
+
+                    //Destroys the AOE attack after 3 seconds. -Z
+                    // because the cooldownTimer is true the while loop will not keep going. -Z
+                    cooldownTimer = true;
+                    yield return new WaitForSeconds(3);
+                    Destroy(aoeLight);
+
+                }
+            }
+            // restarts the loop and makes way for the program to function without deleting itself. -Z
+            yield return null;
+        }
+        // cooldownTimer is reset because we have to do this EVERY. SINGLE. TIME. in order for it to not fuck up the next time we use the spell. -Z
+        cooldownTimer = false;
     }
 }

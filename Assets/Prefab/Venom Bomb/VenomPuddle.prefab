@@ -4841,8 +4841,8 @@ GameObject:
   - component: {fileID: 3280353348175719670}
   - component: {fileID: 2096928572164728014}
   - component: {fileID: 4295191714407804098}
-  - component: {fileID: 4841787809405264903}
   - component: {fileID: 2205269173487493003}
+  - component: {fileID: -5025673436252388715}
   m_Layer: 2
   m_Name: VenomPuddle
   m_TagString: Untagged
@@ -4916,20 +4916,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4841787809405264903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8719662658066098995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb54f3d1fa34eb041901de84b1a5ca0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  damageInterval: 1
 --- !u!135 &2205269173487493003
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4951,3 +4937,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.475
   m_Center: {x: -0.00690433, y: -29.33929, z: -0.008412498}
+--- !u!114 &-5025673436252388715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719662658066098995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4331a7b953ce54eb50e31cdc8f435c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  damageInterval: 1

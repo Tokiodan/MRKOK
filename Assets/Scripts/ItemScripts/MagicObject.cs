@@ -7,9 +7,17 @@ public class MagicObject : ItemObject
 {
     public float attackDamage;
     public float cooldown;
-    public MagicAttack mgattack;
+    public GameObject spellprefab;
     public void Awake()
     {
         type = ItemType.Magic;
+    }
+
+    public override Dictionary<string, object> ItemDetails()
+    {
+        Dictionary<string, object> dict = base.ItemDetails();
+        dict["damage"] = attackDamage;
+        dict["cooldown"] = cooldown;
+        return dict;
     }
 }

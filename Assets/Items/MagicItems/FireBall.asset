@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d543702ada85bb8498ef6aa8a6941ac3, type: 3}
+  m_Name: FireBall
+  m_EditorClassIdentifier: 
+  Id: 5
+  itemImg: {fileID: -9115315822010641240, guid: ef547a691fea31f498873b6847e7b3c8, type: 3}
+  type: 2
+  Desc: A conjuring of mighty flames to take down the stronges foes
+  attackDamage: 0
+  cooldown: 5
+  spellprefab: {fileID: 1724246995370693342, guid: 7e895b7460d46f84ba54a0f24a21d55b, type: 3}

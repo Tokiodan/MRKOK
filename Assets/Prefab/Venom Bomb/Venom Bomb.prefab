@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8439556709234273235}
   - component: {fileID: 6674740961255686001}
   - component: {fileID: 4405945223653470605}
-  - component: {fileID: 7284600192146269823}
+  - component: {fileID: 7541832227467567176}
   m_Layer: 0
   m_Name: Venom Bomb
   m_TagString: Untagged
@@ -157,7 +157,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7284600192146269823
+--- !u!114 &7541832227467567176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,10 +166,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3092094370024571730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7615e2dfe66221949b600fccf6634b0a, type: 3}
+  m_Script: {fileID: 11500000, guid: d6db6cf20ec90d04f85eb9433ce043b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   venomPuddlePrefab: {fileID: 8719662658066098995, guid: 6b47f7f63d6d73e41adbf2ac22d9daaa, type: 3}
+  puddleDuration: 6
 --- !u!1 &3770906747066573855
 GameObject:
   m_ObjectHideFlags: 0

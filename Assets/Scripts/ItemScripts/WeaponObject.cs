@@ -12,4 +12,13 @@ public class WeaponObject : ItemObject
     {
         type = ItemType.Weapon;
     }
+
+    public override Dictionary<string, object> ItemDetails()
+    {
+        Dictionary<string, object> dict = base.ItemDetails();
+        dict["damage"] = damage;
+        dict["attackSpeed"] = attackSpeed;
+        dict["resistance"] = resistance;
+        return dict;
+    }
 }

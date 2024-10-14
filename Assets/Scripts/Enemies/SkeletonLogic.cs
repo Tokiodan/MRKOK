@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkeletonLogic : MonoBehaviour
+public class SkeletonLogic : Entity
 {
     [Header("Skeleton Settings")]
     public int hitsToKill = 1; // Number of hits to kill the skeleton

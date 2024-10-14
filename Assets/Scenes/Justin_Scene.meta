@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Justin_Scene.meta
 guid: 61c37c12032373642a38f5dfd08fec6d
 folderAsset: yes
+========
+guid: 58f7e79a87c79824597746e8c1bfe400
+>>>>>>>> ItemDetails:Assets/SimpleNaturePack/SimpleNaturePack_2020.3_HDRP_v1.24.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

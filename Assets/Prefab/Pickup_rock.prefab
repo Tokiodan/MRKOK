@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
       propertyPath: m_Name
-      value: item_rock Variant
+      value: Pickup_rock
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 897bd2cfb20476244a7f1a859bdb1275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 3e2f081d019cd804ba6cd91f23889809, type: 2}
+  item: {fileID: 11400000, guid: 006863e0f65c42c439d697af59c3b3a3, type: 2}
 --- !u!135 &3883350415101541980
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -134,5 +134,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.06
+  m_Radius: 0.09
   m_Center: {x: 0, y: 0, z: 0}

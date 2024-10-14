@@ -12,6 +12,7 @@ public class VenomPuddle : MonoBehaviour
     // Called when another collider enters the trigger
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name + " should be in range");
         if (other.CompareTag("Enemy") && !enemiesInPuddle.Contains(other.gameObject))
         {
             // Add the enemy to the list if it has the "Enemy" tag and start damaging them
@@ -59,11 +60,11 @@ public class VenomPuddle : MonoBehaviour
         while (enemiesInPuddle.Contains(enemy))
         {
             // Apply damage to the enemy
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            Entity enemyHealth = enemy.GetComponent<Entity>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damage);
-                Debug.Log("Damaged enemy: " + enemy.name + ", Remaining Health: " + enemyHealth.health);
+                enemyHealth.TakeMagicDmg(damage);
+                Debug.Log("Damaged enemy: " + enemy.name + ", Remaining Health: " + enemyHealth.Health);
             }
 
             // Wait for the next damage interval
@@ -82,7 +83,7 @@ public class VenomPuddle : MonoBehaviour
         {
             StopDamageCoroutine(enemy);
         }
-        
+
         enemiesInPuddle.Clear();
         damageCoroutines.Clear();
         Debug.Log("Puddle destroyed, all enemies list cleared and coroutines stopped.");
