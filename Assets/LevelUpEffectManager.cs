@@ -18,17 +18,24 @@ public class LevelUpEffectManager : MonoBehaviour
     [Tooltip("AudioSource to play the level-up sound.")]
     [SerializeField] private AudioSource audioSource;
 
-    private ExperienceManager experienceManager;
+    [Header("Button Click Sound")]
+    [Tooltip("Sound to play when a button is clicked.")]
+    [SerializeField] private AudioClip buttonClickSound;
+
+    [Tooltip("AudioSource to play the button click sound.")]
+    [SerializeField] private AudioSource buttonAudioSource;
+
+    private ExperienceManager expManager; // Reference to the ExperienceManager
 
     void Start()
     {
         // Find the ExperienceManager component
-        experienceManager = FindObjectOfType<ExperienceManager>();
+        expManager = FindObjectOfType<ExperienceManager>();
 
-        if (experienceManager != null)
+        if (expManager != null)
         {
             // Subscribe to the OnLevelUp event
-            experienceManager.OnLevelUp += PlayLevelUpEffect;
+            expManager.OnLevelUp += PlayLevelUpEffect;
         }
         else
         {
@@ -39,9 +46,9 @@ public class LevelUpEffectManager : MonoBehaviour
     void OnDestroy()
     {
         // Unsubscribe from the event when the object is destroyed to avoid memory leaks
-        if (experienceManager != null)
+        if (expManager != null)
         {
-            experienceManager.OnLevelUp -= PlayLevelUpEffect;
+            expManager.OnLevelUp -= PlayLevelUpEffect;
         }
     }
 
@@ -51,17 +58,25 @@ public class LevelUpEffectManager : MonoBehaviour
         if (levelUpParticleEffect != null && playerTransform != null)
         {
             // Spawn position: slightly below the player's feet (adjust Y value for fine-tuning)
-            Vector3 spawnPosition = playerTransform.position + new Vector3(0f, -1f, 0f); // Adjust -1f for how far below the player it should be
+            Vector3 spawnPosition = playerTransform.position + new Vector3(0f, -1f, 0f);
 
             // Set the rotation to ensure it faces upward (0 on X, 0 on Z, up on Y), with a -90f adjustment
-            Quaternion groundRotation = Quaternion.Euler(-90f, 0f, 0f); // Adjust rotation to face upward from the ground
+            Quaternion groundRotation = Quaternion.Euler(-90f, 0f, 0f);
 
             // Instantiate the particle system at the position below the player with the adjusted rotation
             ParticleSystem particleInstance = Instantiate(levelUpParticleEffect, spawnPosition, groundRotation);
+
+            // Make the particle system follow the player
+            particleInstance.transform.SetParent(playerTransform);
+
+            // Enable unscaled time to make the particle system ignore Time.timeScale
+            var mainModule = particleInstance.main;
+            mainModule.useUnscaledTime = true;
+
             particleInstance.Play();
 
-            // Destroy the particle system after 4 seconds
-            Destroy(particleInstance.gameObject, 4f);
+            // Destroy the particle system after 6 seconds (real-time)
+            Destroy(particleInstance.gameObject, 6f);
         }
         else
         {
@@ -77,6 +92,20 @@ public class LevelUpEffectManager : MonoBehaviour
         else
         {
             Debug.LogError("Level up sound or audio source is not assigned.");
+        }
+    }
+
+    // Method to play button click sound
+    public void PlayButtonClickSound()
+    {
+        if (buttonClickSound != null && buttonAudioSource != null)
+        {
+            // Play button click sound using PlayOneShot
+            buttonAudioSource.PlayOneShot(buttonClickSound);
+        }
+        else
+        {
+            Debug.LogError("Button click sound or audio source is not assigned.");
         }
     }
 }
