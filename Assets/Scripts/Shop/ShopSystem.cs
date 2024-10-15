@@ -10,7 +10,7 @@ public class ShopSystem : MonoBehaviour
 
     private int purseAmount = 30; 
 
-    // Inventory quantities
+    
     private int item1Quantity = 2;
     private int item2Quantity = 5;
     private int item3Quantity = 3;
