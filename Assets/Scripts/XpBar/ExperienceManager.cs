@@ -47,8 +47,8 @@ public class ExperienceManager : MonoBehaviour
       
         if (totalExperience >= nextLevelsExperience)
         {
-            currentLevel++;  
-            OnLevelUp?.Invoke(currentLevel);  
+            currentLevel++;
+            OnLevelUp?.Invoke(currentLevel);
             UpdateLevel(); 
         }
     }
