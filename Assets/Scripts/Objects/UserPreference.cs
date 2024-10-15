@@ -6,6 +6,6 @@ using UnityEngine;
 public class UserPreference : ScriptableObject
 {
    public float FOV;
-   public float Sensitivity;
-   public float Volume;
+   public float sensitivity;
+   public float volume;
 }
