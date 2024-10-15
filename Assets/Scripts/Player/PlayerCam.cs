@@ -10,13 +10,18 @@ public class PlayerCam : MonoBehaviour
 
     public Transform orientation;
 
+    public UserPreference userPreference = Resources.Load<UserPreference>("UserPreference");
+
     float xRotation;
     float yRotation;
     // Start is called before the first frame update
     void Start()
     {
+        sensX = userPreference.sensitivity;
+        sensY = userPreference.sensitivity;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Camera.main.fieldOfView = userPreference.FOV;
     }
 
     // Update is called once per frame

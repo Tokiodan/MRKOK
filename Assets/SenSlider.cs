@@ -9,6 +9,7 @@ public class SenSlider : MonoBehaviour
     public Camera mainCamera; 
 
     private Slider sensitivitySlider;
+    public UserPreference userPreference = Resources.Load<UserPreference>("UserPreference");
 
     void Start()
     {
@@ -28,5 +29,6 @@ public class SenSlider : MonoBehaviour
         // If you're adjusting the camera's sensitivity directly, you could do something like:
         // This is just a placeholder for your actual implementation
         Debug.Log($"Mouse Sensitivity set to: {value}");
+        userPreference.Sensitivity = value;
     }
 }
