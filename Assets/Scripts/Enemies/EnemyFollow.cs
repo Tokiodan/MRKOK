@@ -52,7 +52,7 @@ public class EnemyFollow : MonoBehaviour
         }
         else
         {
-            agent.destination = transform.position;
+          //  agent.destination = transform.position;
         }
     }
 

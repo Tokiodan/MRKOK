@@ -64,7 +64,8 @@ public class VenomPuddle : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeMagicDmg(damage);
-                Debug.Log("Damaged enemy: " + enemy.name + ", Remaining Health: " + enemyHealth.Health);
+              //  Debug.Log("Damaged enemy: " + enemy.name + ", Remaining Health: " + enemyHealth.Health);
+              //  hierdoor kreeg ik een compiler error, myb - e
             }
 
             // Wait for the next damage interval
