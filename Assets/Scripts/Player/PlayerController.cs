@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Entity
+public class PlayerController : PlayerEntity
 {
     public float defaultMoveSpeed = 5f; // Normal movement speed
     public float sprintSpeedMultiplier = 1.5f; // Initial sprint speed multiplier
@@ -69,11 +69,6 @@ public class PlayerController : Entity
         CrouchCheck();
         // JumpCheck();
         GroundCheck();
-    }
-
-    public void TakeDamage(float damage)
-    {
-        Debug.Log("hit for dmg amount " + damage);
     }
 
     public void MagicAttack()
