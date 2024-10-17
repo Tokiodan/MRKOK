@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class ExperienceManager : MonoBehaviour
 {
     [Header("Experience")]
@@ -18,7 +19,6 @@ public class ExperienceManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private Image experienceFill;
 
-  
     public event Action<int> OnLevelUp;
 
     void Start()
@@ -26,25 +26,15 @@ public class ExperienceManager : MonoBehaviour
         UpdateLevel();
     }
 
-    void Update()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            AddExperience(5);
-        }
-    }
-
     public void AddExperience(int amount)
     {
         totalExperience += amount;
-        CheckForLevelUp();
         UpdateInterface();
+        CheckForLevelUp();
     }
 
     private void CheckForLevelUp()
     {
-      
         if (totalExperience >= nextLevelsExperience)
         {
             currentLevel++;
@@ -55,7 +45,6 @@ public class ExperienceManager : MonoBehaviour
 
     private void UpdateLevel()
     {
-        
         previousLevelsExperience = (int)experienceCurve.Evaluate(currentLevel - 1);
         nextLevelsExperience = (int)experienceCurve.Evaluate(currentLevel);
         UpdateInterface();    
@@ -63,11 +52,9 @@ public class ExperienceManager : MonoBehaviour
 
     private void UpdateInterface()
     {
-       
         int start = totalExperience - previousLevelsExperience;
         int end = nextLevelsExperience - previousLevelsExperience;
 
-      
         levelText.text = currentLevel.ToString();
         experienceText.text = start + " exp / " + end + " exp";
         experienceFill.fillAmount = (float)start / (float)end;

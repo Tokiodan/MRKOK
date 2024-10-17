@@ -11,6 +11,8 @@ public class FOVslider : MonoBehaviour
     public UserPreference userPreference;
     public Camera mainCamera;
 
+    
+
     private Slider fovSlider;
 
     void Start()
@@ -25,6 +27,6 @@ public class FOVslider : MonoBehaviour
 
     public void UpdateFOV(float value)
     {
-        userPreference.FOV = value;
+        userPreference.FOV = value; 
     }
 }
