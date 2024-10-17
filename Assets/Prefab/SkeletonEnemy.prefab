@@ -2484,7 +2484,7 @@ MonoBehaviour:
   Health: 20
   Resistance: 0
   MagResistance: 0
-  hitsToKill: 3
+  hitsToKill: 1
 --- !u!54 &4176705844051403923
 Rigidbody:
   m_ObjectHideFlags: 0
