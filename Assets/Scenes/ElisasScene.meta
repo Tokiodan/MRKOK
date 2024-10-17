@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/ElisasScene.meta
 guid: ae7044681069641418b79a95f31162a6
 folderAsset: yes
+========
+guid: d38310114df0ea1438e6ac1105b75a51
+>>>>>>>> f4e703ca15d21ed332ed797d634613dee016be0e:Assets/Scenes/DayNightCycle.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

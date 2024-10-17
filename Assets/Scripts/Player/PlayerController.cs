@@ -1,17 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : Entity
 {
-    public float defaultMoveSpeed;
-    public float sprintSpeedMultiplier;
-    public float crouchSpeedMultiplier = 0.6f;
-    public float jumpForce = 10f;
-    private bool isGrounded;
-    public float groundCheckDistance = 1.1f;
+    public float defaultMoveSpeed = 5f; // Normal movement speed
+    public float sprintSpeedMultiplier = 1.5f; // Initial sprint speed multiplier
+    public float crouchSpeedMultiplier = 0.6f; // Crouch speed multiplier
+    public float jumpForce = 10f; // Jump force
+    private bool isGrounded; // Check if the player is on the ground
+    public float groundCheckDistance = 1.1f; // Distance to check if grounded
 
     private float baseMoveSpeed; // This will hold the default speed
     public float MoveSpeed { get; private set; } // Public property for moveSpeed
@@ -19,19 +17,19 @@ public class PlayerController : Entity
     float horizontalInput;
     float verticalInput;
 
-    public Transform orientation;
+    public Transform orientation; // Player orientation
     Vector3 moveDirection;
 
-    private bool canPlayWalkSFX = true;
-    private bool isCrouched = false;
+    private bool canPlayWalkSFX = true; // Sound effects control
+    private bool isCrouched = false; // Check if the player is crouching
 
-    Rigidbody rb;
-    public InventoryObject inventory;
-    public Canvas UI_VISIBLE_CANVAS;
-    [SerializeField] private AudioSource sfxAudio;
+    Rigidbody rb; // Rigidbody component
+    public InventoryObject inventory; // Reference to the inventory
+    public Canvas UI_VISIBLE_CANVAS; // Reference to the UI
+    [SerializeField] private AudioSource sfxAudio; // Sound effects audio source
 
-    public Vector3 normalScale = new Vector3(1, 1, 1);
-    public Vector3 crouchScale = new Vector3(1, 0.5f, 1);
+    public Vector3 normalScale = new Vector3(1, 1, 1); // Normal scale for the player
+    public Vector3 crouchScale = new Vector3(1, 0.5f, 1); // Scale when crouching
 
     //this is some fould shit.
     public delegate void MyDelegate();
@@ -46,7 +44,6 @@ public class PlayerController : Entity
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
         UI_VISIBLE_CANVAS = GameObject.Find("Inventory").GetComponent<Canvas>();
         baseMoveSpeed = defaultMoveSpeed; // Store the default speed
         MoveSpeed = baseMoveSpeed; // Initialize moveSpeed
@@ -55,7 +52,6 @@ public class PlayerController : Entity
 
     void Update()
     {
-        PlayerSound();
         MyInput();
         SpeedControl();
         SprintCheck();
@@ -134,13 +130,14 @@ public class PlayerController : Entity
 
     private void SprintCheck()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouched)
+        // Check if the player is holding the shift key to sprint
+        if (Input.GetKey(KeyCode.LeftShift) && !isCrouched)
         {
             MoveSpeed = baseMoveSpeed * sprintSpeedMultiplier; // Set sprint speed
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        else
         {
-            MoveSpeed = baseMoveSpeed; // Reset to base speed
+            MoveSpeed = baseMoveSpeed; // Reset to base speed when not sprinting
         }
     }
 
@@ -205,23 +202,6 @@ public class PlayerController : Entity
         }
     }
 
-    private void PlayerSound()
-    {
-        if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
-        {
-            canPlayWalkSFX = false;
-            AudioSource a = AudioManagerSO.PlaySFXLoop("Walking", transform.position, 0.5f);
-            StartCoroutine(WaitforStop(a));
-        }
-    }
-
-    private IEnumerator WaitforStop(AudioSource SFX)
-    {
-        yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
-        SFX.Stop();
-        canPlayWalkSFX = true;
-    }
-
     private void SaveQuit()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -232,5 +212,12 @@ public class PlayerController : Entity
         {
             inventory.Load();
         }
+    }
+
+    public void UpgradeSprintSpeed()
+    {
+        // Increase the sprint speed multiplier each time this method is called
+        sprintSpeedMultiplier += 0.1f; // Increase by 0.1 (adjust as needed)
+        Debug.Log($"Sprint Speed Multiplier upgraded to: {sprintSpeedMultiplier}"); // Debug log
     }
 }
