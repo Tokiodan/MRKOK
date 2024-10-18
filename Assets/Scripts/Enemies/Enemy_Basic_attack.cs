@@ -45,8 +45,8 @@ public class Basic_attack : MonoBehaviour
         }
         else
         {
-           // navMeshAgent.isStopped = false;
-         //   navMeshAgent.SetDestination(player.transform.position);
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(player.transform.position);
         }
 
         // This is for the movement part of your animation. 
@@ -84,7 +84,7 @@ public class Basic_attack : MonoBehaviour
 
             if (other.CompareTag("Player"))
             {
-                other.GetComponent<PlayerHealthStat>().TakeDamage(damage);
+                other.GetComponent<PlayerEntity>().TakePhysicalDmg(damage);
             }
             //  Debug.Log("Comparing...");
             // PlayerController playerScript = other.GetComponent<PlayerController>();
