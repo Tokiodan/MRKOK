@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Entity : MonoBehaviour
 {
- //   public float Health = 100f;
+   public float Health = 100f;
     public float Resistance;
     public float MagResistance;
     public int experienceReward = 25;
