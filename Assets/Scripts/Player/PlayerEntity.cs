@@ -7,23 +7,26 @@ using UnityEngine;
 public class PlayerEntity : Entity
 {
     public healthBar healthBar;
-    public float maxHealth;
+    public ManaBar manaBar;
+    public float currentMana;
+    public float maxMana;
+
     private void Start()
     {
-        maxHealth = Health;
         healthBar.SetSliderMax(maxHealth);
     }
-    protected void Update()
+
+    // this update had to be protected in order to function properly?
+    // Idk I had issues with inheritance for these methods.
+    protected override void Update()
     {
-        if (Health <= 0)
-        {
-            Destroy(gameObject);
-            Debug.Log("health is zero...");
-            // SpawnLoot();
-        }
+        ManaHandling();
+        base.Update();
     }
 
-    // new void is added to avoid confusion with the base class.
+    // The reason i've used the keyword new here is because it will overwrite the entity method with the same name.
+    // I do recall it with base.TakePhysicalDmg in order to still execute that script. 
+    // But added the health slider for the player.
     public new void TakePhysicalDmg(float damage)
     {
         // base is the entity class we inherit from.
@@ -36,59 +39,33 @@ public class PlayerEntity : Entity
         base.TakeMagicDmg(damage);
         healthBar.SetSlider(Health);
     }
+
+    public void ManaHandling()
+    {
+        if (currentMana < maxMana)
+        {
+            RegenerateMana(Time.deltaTime * 2f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            UseMana(10f);
+        }
+    }
+
+    public void RegenerateMana(float amount)
+    {
+        currentMana += amount;
+        if (currentMana > maxMana) currentMana = maxMana;
+        manaBar.SetSlider(currentMana);
+    }
+    public void UseMana(float amount)
+    {
+        currentMana -= amount;
+        if (currentMana < 0) currentMana = 0;
+        Debug.Log("Mana after move:" + currentMana);
+        manaBar.SetSlider(currentMana);
+    }
 }
 
 
-// [SerializeField] private float maxMana;
-
-// private float currentHealth;
-// private float currentMana;
-
-// public ManaBar manaBar;
-// public healthBar healthBar;
-
-// private void Start()
-// {
-//     currentHealth = maxHealth;
-//     healthBar.SetSliderMax(maxHealth);
-
-//     currentMana = maxMana;
-//     manaBar.SetSliderMax(maxMana);
-// }
-
-// public void TakeDamage(float amount)
-// {
-//     currentHealth -= amount;
-//     if (currentHealth < 0) currentHealth = 0;
-//     Debug.Log("Current Health after damage: " + currentHealth);
-//     healthBar.SetSlider(currentHealth);
-// }
-
-// public void UseMana(float amount)
-// {
-//     currentMana -= amount;
-//     if (currentMana < 0) currentMana = 0;
-//     Debug.Log("Mana after move:" + currentMana);
-//     manaBar.SetSlider(currentMana);
-// }
-
-// private void Update()
-// {
-//     if (currentMana < maxMana)
-//     {
-//         RegenerateMana(Time.deltaTime * 2f);
-//     }
-
-//     if (Input.GetKeyDown(KeyCode.K))
-//     {
-//         UseMana(10f);
-//     }
-// }
-
-
-// public void RegenerateMana(float amount)
-// {
-//     currentMana += amount;
-//     if (currentMana > maxMana) currentMana = maxMana;
-//     manaBar.SetSlider(currentMana);
-// }

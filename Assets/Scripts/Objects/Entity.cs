@@ -12,11 +12,19 @@ public class Entity : MonoBehaviour
     private ItemDatabaseObject database;
     public Dropchance[] dropTable;
     public float Health = 100f;
+    protected float maxHealth;
     public float Resistance;
     public float MagResistance;
 
-    private void Update()
+    // virtual, in this case, is the keyword for override. It makes it possible to change the same method later on
+    protected virtual void Awake()
     {
+        maxHealth = Health;
+    }
+
+    protected virtual void Update()
+    {
+        Debug.Log("checking..." + gameObject.name);
         if (Health <= 0)
         {
             Destroy(gameObject);
@@ -47,7 +55,7 @@ public class Entity : MonoBehaviour
         for (int i = 0; i < dropTable.Length; i++)
         {
             // get a random number
-            int randomNumber = Random.Range(0, 100);
+            float randomNumber = Random.Range(0f, 100f);
             Debug.Log(randomNumber);
             Debug.Log(dropTable[i].dropchance);
 
@@ -66,8 +74,8 @@ public class Entity : MonoBehaviour
 [System.Serializable]
 public class Dropchance
 {
-    [Range(0, 100)]
-    public int dropchance;
+    [Range(0f, 100f)]
+    public float dropchance;
     public ItemObject item;
     public GameObject DropItemPrefab;
 }
