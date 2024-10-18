@@ -1,4 +1,4 @@
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellManager : MonoBehaviour
@@ -139,4 +139,3 @@ public class SpellManager : MonoBehaviour
         return null;
     }
 }
-*/
