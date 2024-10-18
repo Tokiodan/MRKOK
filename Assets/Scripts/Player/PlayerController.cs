@@ -50,7 +50,7 @@ public class PlayerController : PlayerEntity
         lastSpawnTime = -cooldownDuration; // Initialize so the player can spawn right away
     }
 
-    void Update()
+    new void Update()
     {
         MyInput();
         SpeedControl();
@@ -61,6 +61,8 @@ public class PlayerController : PlayerEntity
         OpenInventory();
         SaveQuit();
         MagicAttack();
+
+        base.Update();
     }
 
     void FixedUpdate()

@@ -45,8 +45,8 @@ public class Basic_attack : MonoBehaviour
         }
         else
         {
-            // navMeshAgent.isStopped = false;
-            //   navMeshAgent.SetDestination(player.transform.position);
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(player.transform.position);
         }
 
         // This is for the movement part of your animation. 

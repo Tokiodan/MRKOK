@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public class Entity : MonoBehaviour
 {
@@ -14,11 +15,12 @@ public class Entity : MonoBehaviour
     public float Resistance;
     public float MagResistance;
 
-    void Update()
+    private void Update()
     {
         if (Health <= 0)
         {
             Destroy(gameObject);
+            Debug.Log("health is zero...");
             SpawnLoot();
         }
     }
@@ -26,26 +28,46 @@ public class Entity : MonoBehaviour
     public void TakePhysicalDmg(float Damage)
     {
         float takenDamge = Damage - (0.75f * Resistance);
-        //   Health -= takenDamge;
+        Health -= takenDamge;
     }
     public void TakeMagicDmg(float Damage)
     {
         float takenDamge = Damage - (0.75f * MagResistance);
-        //  Health -= takenDamge;
+        Health -= takenDamge;
     }
 
     public void SpawnLoot()
     {
+        // don't do anything if it hasn't anything to drop.
+        if (dropTable.Length == 0)
+        {
+            return;
+        }
         // we loop through each item
-        // get a random number
-        // check if number is within the percentage
-        // spawn item if it is
-        // don't spawn item if it's not.
+        for (int i = 0; i < dropTable.Length; i++)
+        {
+            // get a random number
+            int randomNumber = Random.Range(0, 100);
+            Debug.Log(randomNumber);
+            Debug.Log(dropTable[i].dropchance);
+
+            // check if number is within the percentage
+            if (randomNumber <= dropTable[i].dropchance)
+            {
+                // spawn prefab
+                GameObject item = Instantiate(dropTable[i].DropItemPrefab, transform.position, Quaternion.identity);
+
+                // add the invenoryItem to the 3d object
+                item.GetComponent<GroundItem>().item = dropTable[i].item;
+            }
+        }
     }
 }
-
+[System.Serializable]
 public class Dropchance
 {
-    public float dropchance;
+    [Range(0, 100)]
+    public int dropchance;
     public ItemObject item;
+    public GameObject DropItemPrefab;
 }
