@@ -2424,7 +2424,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -2465,6 +2465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24fca1558222f741b96545110d8a4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
   attackRange: 2
   attackCooldown: 2
   player: {fileID: 0}
@@ -2481,10 +2482,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78169a014c8839d4a8ac5b542bf77056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropTable:
+  - dropchance: 100
+    item: {fileID: 11400000, guid: 79bb57347f8198344808cefc2ae969b0, type: 2}
+    DropItemPrefab: {fileID: 5504218174553269786, guid: efa79105eeaf82747b059c8497d69a19, type: 3}
+  - dropchance: 50
+    item: {fileID: 11400000, guid: 3bce522447f47614cadefa7b7b27d587, type: 2}
+    DropItemPrefab: {fileID: 5504218174553269786, guid: efa79105eeaf82747b059c8497d69a19, type: 3}
+  - dropchance: 25
+    item: {fileID: 11400000, guid: 3e2f081d019cd804ba6cd91f23889809, type: 2}
+    DropItemPrefab: {fileID: 5504218174553269786, guid: efa79105eeaf82747b059c8497d69a19, type: 3}
   Health: 20
   Resistance: 0
   MagResistance: 0
-  hitsToKill: 3
+  Damage: 20
 --- !u!54 &4176705844051403923
 Rigidbody:
   m_ObjectHideFlags: 0

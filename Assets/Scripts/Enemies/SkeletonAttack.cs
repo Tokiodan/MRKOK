@@ -10,16 +10,16 @@ public class SkeletonAttack : MonoBehaviour
         if (other.CompareTag("Player"))
         {
 
-            if(other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
-                other.GetComponent<PlayerHealthStat>().TakeDamage(damage);
+                other.GetComponent<PlayerEntity>().TakePhysicalDmg(damage);
             }
-          //  Debug.Log("Comparing...");
-           // PlayerController playerScript = other.GetComponent<PlayerController>();
-           // if (playerScript != null)
-          //  {
-           //     playerScript.TakeDamage(damage);
-          //  }
+            //  Debug.Log("Comparing...");
+            // PlayerController playerScript = other.GetComponent<PlayerController>();
+            // if (playerScript != null)
+            //  {
+            //     playerScript.TakeDamage(damage);
+            //  }
         }
     }
 }

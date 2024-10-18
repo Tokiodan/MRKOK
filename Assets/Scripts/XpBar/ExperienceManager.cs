@@ -10,7 +10,7 @@ public class ExperienceManager : MonoBehaviour
     [Header("Experience")]
     [SerializeField] private AnimationCurve experienceCurve;
 
-    private int currentLevel = 1;
+    public static int currentLevel { private set; get; } = 1;
     private int totalExperience = 0;
     private int previousLevelsExperience, nextLevelsExperience;
 
@@ -19,11 +19,22 @@ public class ExperienceManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private Image experienceFill;
 
+
+
     public event Action<int> OnLevelUp;
 
     void Start()
     {
         UpdateLevel();
+    }
+
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            AddExperience(5);
+        }
     }
 
     public void AddExperience(int amount)
@@ -35,11 +46,12 @@ public class ExperienceManager : MonoBehaviour
 
     private void CheckForLevelUp()
     {
+
         if (totalExperience >= nextLevelsExperience)
         {
             currentLevel++;
             OnLevelUp?.Invoke(currentLevel);
-            UpdateLevel(); 
+            UpdateLevel();
         }
     }
 
@@ -47,7 +59,7 @@ public class ExperienceManager : MonoBehaviour
     {
         previousLevelsExperience = (int)experienceCurve.Evaluate(currentLevel - 1);
         nextLevelsExperience = (int)experienceCurve.Evaluate(currentLevel);
-        UpdateInterface();    
+        UpdateInterface();
     }
 
     private void UpdateInterface()
