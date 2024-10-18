@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Entity : MonoBehaviour
 {
-      public float Health = 100f;
+ //   public float Health = 100f;
     public float Resistance;
     public float MagResistance;
     public int experienceReward = 25;
@@ -26,13 +26,13 @@ public class Entity : MonoBehaviour
     public void TakePhysicalDmg(float Damage)
     {
         float takenDamge = Damage - (0.75f * Resistance);
-        Health -= takenDamge;
+     //   Health -= takenDamge;
     }
 
     public void TakeMagicDmg(float Damage)
     {
         float takenDamge = Damage - (0.75f * MagResistance);
-        Health -= takenDamge;
+      //  Health -= takenDamge;
     }
 
     private void GrantExperience()

@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class Basic_attack : MonoBehaviour
 {
+    public float damage;
     public float attackRange = 2.0f;
     public float attackCooldown = 2.0f;
     [SerializeField] private GameObject player;
@@ -44,8 +45,8 @@ public class Basic_attack : MonoBehaviour
         }
         else
         {
-            navMeshAgent.isStopped = false;
-            navMeshAgent.SetDestination(player.transform.position);
+           // navMeshAgent.isStopped = false;
+         //   navMeshAgent.SetDestination(player.transform.position);
         }
 
         // This is for the movement part of your animation. 
@@ -74,5 +75,23 @@ public class Basic_attack : MonoBehaviour
     public bool IsAttacking()
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponent<PlayerHealthStat>().TakeDamage(damage);
+            }
+            //  Debug.Log("Comparing...");
+            // PlayerController playerScript = other.GetComponent<PlayerController>();
+            // if (playerScript != null)
+            //  {
+            //     playerScript.TakeDamage(damage);
+            //  }
+        }
     }
 }
