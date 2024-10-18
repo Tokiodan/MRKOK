@@ -13,7 +13,6 @@ public class Entity : MonoBehaviour
     public Dropchance[] dropTable;
     public float Health = 100f;
     protected float maxHealth;
-   public float Health = 100f;
     public float Resistance;
     public float MagResistance;
     public int experienceReward = 25;
