@@ -93,7 +93,6 @@ public class Entity : MonoBehaviour
             }
         }
     }
-
 }
 
 [System.Serializable]

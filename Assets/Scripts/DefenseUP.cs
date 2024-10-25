@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DefenseUP : MonoBehaviour
 {
-    private player player;
+    private PlayerEntity player;
 
     // Start is called before the first frame update
     private void Start()
     {
         // Get a reference to the player component on the same or another GameObject
-        player = FindObjectOfType<player>();  // Assuming there is only one player instance
+        player = FindObjectOfType<PlayerEntity>();  // Assuming there is only one player instance
         if (player == null)
         {
             Debug.LogError("Player component not found!");
