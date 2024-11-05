@@ -1,18 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireballCollision : MonoBehaviour
 {
-    public int damage = 10; // The amount of damage the fireball does
-    public int LifeTime = 3;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Destroy(gameObject, LifeTime);
-    }
-
-
+    public int damage = 10;  // Default damage, but will be set by Fireball script
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,47 +18,45 @@ public class FireballCollision : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             Debug.Log("Collided with: " + other.gameObject.name + " (Enemy)");
-            // Deal damage to the enemy
-            ApplyDamage(other);
-
-            // Start coroutine to handle the delayed destruction
-            StartCoroutine(HandleCollisionWithEnemy(other));
-        }
-        else
-        {
-            Debug.Log("Collided with Player, no destruction.");
+            ApplyDamage(other);            
+            StartCoroutine(HandleCollisionWithEnemy(other)); // Delay destruction
         }
     }
 
     private void ApplyDamage(Collider enemy)
     {
-        // Get the EnemyHealth component and apply damage
-        Entity enemyHealth = enemy.GetComponent<Entity>();
+        // First, try to get the EnemyHealth component
+        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeMagicDmg(damage); // Apply damage to the enemy
-            Debug.Log("Damaged enemy: " + enemy.gameObject.name + " for " + damage + " damage.");
+            enemyHealth.TakeDamage(damage); // Apply damage
+            Debug.Log("Damaged enemy with EnemyHealth: " + enemy.gameObject.name + " for " + damage + " damage.");
         }
         else
         {
-            Debug.Log("Enemy does not have an EnemyHealth component.");
+            Entity entity = enemy.GetComponent<Entity>();
+            if (entity != null)
+            {
+                entity.TakePhysicalDmg(damage);
+                Debug.Log("Damaged entity: " + enemy.gameObject.name + " for " + damage + " physical damage.");
+            }
+            else
+            {
+                Debug.Log("No valid health component found on " + enemy.gameObject.name);
+            }
         }
     }
 
     private IEnumerator HandleCollisionWithEnemy(Collider enemy)
     {
-        // Optionally, apply a pushback force to the enemy
         Rigidbody enemyRigidbody = enemy.GetComponent<Rigidbody>();
         if (enemyRigidbody != null)
         {
             Vector3 pushbackDirection = (enemy.transform.position - transform.position).normalized;
-            enemyRigidbody.AddForce(pushbackDirection * 100f, ForceMode.Impulse); // Adjust the force as necessary
+            enemyRigidbody.AddForce(pushbackDirection * 10f, ForceMode.Impulse);
         }
 
-        // Wait for a short duration before destroying the fireball
-        yield return new WaitForSeconds(0.5f); // Adjust the time as necessary
-
-        // Destroy the fireball after the delay
+        yield return new WaitForSeconds(0.5f); 
         Destroy(gameObject);
     }
 }

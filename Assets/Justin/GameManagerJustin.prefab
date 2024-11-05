@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7219946665150021372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2448059944167994235}
+  - component: {fileID: 8575530809372411988}
+  - component: {fileID: 7931221954370146250}
+  - component: {fileID: 9033086068532940092}
+  - component: {fileID: 6987601407818124543}
+  - component: {fileID: 4882618447000561842}
+  - component: {fileID: 2049365407270472383}
+  - component: {fileID: 908983982924254276}
+  - component: {fileID: 5378792980412572974}
+  - component: {fileID: 6035098639519995500}
+  m_Layer: 0
+  m_Name: GameManagerJustin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2448059944167994235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8575530809372411988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22775da01ae6c19499af825c08fe7bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefab: {fileID: 8298188187643991212, guid: d06f3b545fb2bfc42b3b6b5bf39770b8, type: 3}
+  cooldownDuration: 5
+  spawnOffsetDistance: 2
+  spellID: 
+  maxLevel: 5
+  minPlayerLevel: 1
+  currentLevel: 0
+  baseDamage: 20
+  damageIncrement: 10
+  speed: 5
+  fireballSpacing: 1.5
+--- !u!114 &7931221954370146250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df76b048b81f4524280c91314623d0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefab: {fileID: 8284730153469095861, guid: 575d19c45a33d694b8bb7e55f4c6f007, type: 3}
+  cooldownDuration: 5
+  spawnOffsetDistance: 2
+  spellID: 
+  maxLevel: 5
+  minPlayerLevel: 1
+  currentLevel: 0
+  baseDamage: 10
+  damageIncrement: 10
+  footForwardDistance: 2
+--- !u!114 &9033086068532940092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f2dd4399953e640a77f45a929584d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefab: {fileID: 5216164918406601452, guid: 60b8c094a6f70aa4eb4ebd4600b8da31, type: 3}
+  cooldownDuration: 5
+  spawnOffsetDistance: 2
+  spellID: 
+  maxLevel: 5
+  minPlayerLevel: 10
+  currentLevel: 0
+  baseDamage: 20
+  damageIncrement: 20
+  aoeIndicatorPrefab: {fileID: 4241277057360122639, guid: c14f175d6aae7884c9bcdac2a9dbd339, type: 3}
+  aoeLightPrefab: {fileID: 5216164918406601452, guid: 60b8c094a6f70aa4eb4ebd4600b8da31, type: 3}
+  aoeDuration: 3
+--- !u!114 &6987601407818124543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba5c5fe406995e4f997202a04a5eacb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefab: {fileID: 3092094370024571730, guid: 3d4c7e9eb3fa39e4abdae2805ebb8d08, type: 3}
+  cooldownDuration: 5
+  spawnOffsetDistance: 2
+  spellID: 
+  maxLevel: 5
+  minPlayerLevel: 5
+  currentLevel: 0
+  baseDamage: 5
+  damageIncrement: 5
+  launchForce: 10
+  upwardForce: 5
+  venomPuddlePrefab: {fileID: 0}
+--- !u!114 &4882618447000561842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa0f9e9b6790ad488b6f6f9d4d0675a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefab: {fileID: 0}
+  cooldownDuration: 0
+  spawnOffsetDistance: 2
+  spellID: 
+  maxLevel: 5
+  minPlayerLevel: 50
+  currentLevel: 0
+  baseDamage: 0
+  damageIncrement: 0
+  baseTimeStopDuration: 4
+  durationIncrement: 1
+  timeStopAudioClip: {fileID: 8300000, guid: 10e0327e94d3f164495681f441e2e69c, type: 3}
+--- !u!114 &2049365407270472383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab028e8a3f0bdd44bb0e347c1e60ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellPrefab: {fileID: 1553271386200109965, guid: cd001039b82fab140896f64847995347, type: 3}
+  cooldownDuration: 0
+  spawnOffsetDistance: 2
+  spellID: 
+  maxLevel: 5
+  minPlayerLevel: 1
+  currentLevel: 1
+  baseDamage: 0
+  damageIncrement: 0
+  shieldPrefab: {fileID: 1553271386200109965, guid: cd001039b82fab140896f64847995347, type: 3}
+  shieldDuration: 5
+  shieldRadius: 5
+--- !u!114 &908983982924254276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01836c884817f5e46bbd2fb4239c418e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellUnlockPanel: {fileID: 0}
+--- !u!114 &5378792980412572974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54aff3ee1b0f814bacddf71133548cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellMappings:
+  - key: 49
+    spell: {fileID: 8575530809372411988}
+  - key: 50
+    spell: {fileID: 6987601407818124543}
+  - key: 51
+    spell: {fileID: 7931221954370146250}
+  - key: 52
+    spell: {fileID: 9033086068532940092}
+  - key: 53
+    spell: {fileID: 4882618447000561842}
+  - key: 54
+    spell: {fileID: 2049365407270472383}
+--- !u!114 &6035098639519995500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219946665150021372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18bf93d164700214b94c4a673a474130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

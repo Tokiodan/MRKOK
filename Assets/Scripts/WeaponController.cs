@@ -28,6 +28,7 @@ public class WeaponController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && CanAttack)
         {
             SwordAttack();
+            CanAttack = true;
         }
     }
 

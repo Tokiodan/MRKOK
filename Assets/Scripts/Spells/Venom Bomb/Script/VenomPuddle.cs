@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class VenomPuddle : MonoBehaviour
 {
-    public int damage = 5; // Damage per second to the enemy
-    public float damageInterval = 1f; // Interval at which damage is applied (in seconds)
-    private List<GameObject> enemiesInPuddle = new List<GameObject>(); // List to track enemies inside the puddle
-    private Dictionary<GameObject, Coroutine> damageCoroutines = new Dictionary<GameObject, Coroutine>(); // Track damage coroutines per enemy
+    private int damage = 5;  // Default damage value (will be overridden)
+    public float damageInterval = 1f;  // Interval at which damage is applied (in seconds)
+    private List<GameObject> enemiesInPuddle = new List<GameObject>();  // List to track enemies inside the puddle
+    private Dictionary<GameObject, Coroutine> damageCoroutines = new Dictionary<GameObject, Coroutine>();  // Track damage coroutines per enemy
+
+    // Set the damage of the puddle
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;  // Override default damage with the value passed from VenomBomb
+        Debug.Log($"Venom Puddle damage set to {damage}");
+    }
 
     // Called when another collider enters the trigger
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name + " should be in range");
         if (other.CompareTag("Enemy") && !enemiesInPuddle.Contains(other.gameObject))
         {
             // Add the enemy to the list if it has the "Enemy" tag and start damaging them
@@ -40,7 +46,7 @@ public class VenomPuddle : MonoBehaviour
         if (!damageCoroutines.ContainsKey(enemy))
         {
             Coroutine damageCoroutine = StartCoroutine(DamageEnemyOverTime(enemy));
-            damageCoroutines[enemy] = damageCoroutine; // Track the coroutine for this enemy
+            damageCoroutines[enemy] = damageCoroutine;  // Track the coroutine for this enemy
         }
     }
 
@@ -50,7 +56,7 @@ public class VenomPuddle : MonoBehaviour
         if (damageCoroutines.ContainsKey(enemy))
         {
             StopCoroutine(damageCoroutines[enemy]);
-            damageCoroutines.Remove(enemy); // Remove from the dictionary
+            damageCoroutines.Remove(enemy);  // Remove from the dictionary
         }
     }
 
@@ -60,12 +66,11 @@ public class VenomPuddle : MonoBehaviour
         while (enemiesInPuddle.Contains(enemy))
         {
             // Apply damage to the enemy
-            Entity enemyHealth = enemy.GetComponent<Entity>();
+            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeMagicDmg(damage);
-              //  Debug.Log("Damaged enemy: " + enemy.name + ", Remaining Health: " + enemyHealth.Health);
-              //  hierdoor kreeg ik een compiler error, myb - e
+                enemyHealth.TakeDamage(damage);  // Apply the correct damage
+                Debug.Log($"Damaged enemy: {enemy.name}, Remaining Health: {enemyHealth.health}, Damage: {damage}");
             }
 
             // Wait for the next damage interval

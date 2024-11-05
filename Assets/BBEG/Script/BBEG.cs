@@ -16,6 +16,7 @@ public class BBEG : Entity
     private float fireballTimer = 0f;         // Timer for fireball cooldown
     private bool isCasting = false;           // Is BBEG currently casting
     public bool isMiasmaActive = false;       // Is Miasma currently active
+    public bool BBEGisDead = false;
 
     // Public properties to expose maxHealth and currentHealth
     public float MaxHealth => maxHealth;      
@@ -51,10 +52,10 @@ public class BBEG : Entity
         }
 
         // Fireball casting
-        if (!isCasting && fireballTimer <= 0 && player != null)
+        /*if (!isCasting && fireballTimer <= 0 && player != null)
         {
             StartCoroutine(CastFireball());
-        }
+        }*/
     }
 
     private void HandleDeath()
@@ -71,7 +72,7 @@ public class BBEG : Entity
     }
 
     // Fireball casting method
-    private IEnumerator CastFireball()
+    /*private IEnumerator CastFireball()
 {
     isCasting = true;
     fireballTimer = fireballCooldown;
@@ -94,7 +95,7 @@ public class BBEG : Entity
 
     if (agent != null) agent.isStopped = false; // Resume movement
     isCasting = false;
-}
+}*/
 
     // Method to activate Miasma for healing
     private void ActivateMiasma()
@@ -138,6 +139,10 @@ public class BBEG : Entity
         Health -= damage;
         Debug.Log(BBEGName + " took " + damage + " physical damage. Current health: " + Health);
 
-        if (Health <= 0) HandleDeath();
+        if (Health <= 0)
+        {
+            HandleDeath();
+            BBEGisDead = true;
+        }
     }
 }
