@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkeletonLogic : EnemeyEntity
+public class SkeletonLogic : EnemyEntity
 {
     [Header("Skeleton Settings")]
     [Tooltip("Damage dealt by the player.")]

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemeyEntity : Entity
+public class EnemyEntity : Entity
 {
 
     // worldlevel scaling.
