@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e36c9c96c7a6642a767277b74d1575, type: 3}
   m_Name: UserPreference
   m_EditorClassIdentifier: 
-  FOV: 90
-  sensitivity: 50
-  volume: 1
+  FOV: 70
+  sensitivity: 100
+  volume: 0

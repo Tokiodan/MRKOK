@@ -40,12 +40,21 @@ public class SpellManager : MonoBehaviour
     {
         foreach (var mapping in spellMappings)
         {
+            // DivinePillar requires holding the key, so skip the cooldown check until the key is released
+            if (mapping.spell.spellID == "DivinePillar")
+            {
+                DivinePillar divinePillar = (DivinePillar)mapping.spell;
+                // The cooldown logic is handled inside DivinePillar itself, so no need to check it here
+                continue;
+            }
+
             if (Input.GetKeyDown(mapping.key))
             {
                 CastSpell(mapping.spell);
             }
         }
     }
+
 
     public void CastSpell(Spell spell)
     {
@@ -68,8 +77,20 @@ public class SpellManager : MonoBehaviour
             return;
         }
 
+        // Apply spell upgrades to determine damage
+        ApplySpellUpgrades(spell);
+
         // Log the damage the spell will do
         Debug.Log($"{spell.spellID} casting at level {spell.currentLevel}, damage: {spell.GetDamage()}");
+
+        // Example of a special spell (TimeStop)
+        if (spell.spellID == "TimeStop")
+        {
+            TimeStop timeStopSpell = (TimeStop)spell;
+            timeStopSpell.CastSpell(Vector3.zero, Quaternion.identity);
+            timeStopped = true;
+            return;
+        }
 
         // Default spell-casting logic
         Camera mainCamera = Camera.main;
@@ -79,6 +100,13 @@ public class SpellManager : MonoBehaviour
         // Start cooldown for spell
         StartCooldown(spell.spellID, spell.cooldownDuration);
     }
+
+    private void ApplySpellUpgrades(Spell spell)
+    {
+        // Log the updated damage based on the current level
+        Debug.Log($"{spell.spellID} now deals {spell.GetDamage()} damage at level {spell.currentLevel}");
+    }
+
 
     public bool IsSpellUnlocked(string spellID)
     {
@@ -137,5 +165,10 @@ public class SpellManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void ResumeTime()
+    {
+        timeStopped = false;
     }
 }

@@ -14,16 +14,16 @@ public class QuestManager : MonoBehaviour
     private Quest currentQuest;  // The currently selected quest
     private int currentQuestIndex = -1;  // Index of the currently selected quest
 
-    public bool playerFoundDog = false;
     public int playerHerbsCollected = 0;
     public bool goblinBossDefeated = false;
+    public bool DefeatDjinn = false;
+    public BBEG bbeg;
 
     void Start()
 {
     // Example: Quest 1 - Find a missing dog
-    quests.Add(new Quest("Find the Lost Dog", 
-        "Help find the missing dog in the village.", 
-        () => playerFoundDog));  // clearCondition is checking a boolean flag
+    quests.Add(new Quest("Defeat the evil Djinn.", "Defeat the evil Djinn to progress in your adventure.", () => DefeatDjinn));  // Add a description here
+ // clearCondition is checking a boolean flag
 
     // Example: Quest 2 - Collect 5 herbs
     quests.Add(new Quest("Collect Herbs", 
@@ -67,9 +67,9 @@ public class QuestManager : MonoBehaviour
         }
 
         // Example inputs for quest conditions
-        if (Input.GetKeyDown(KeyCode.F))  // Assuming 'F' is for finding the dog
+        if (bbeg.BBEGisDead == true)  // Assuming 'F' is for finding the dog
         {
-            playerFoundDog = true;
+            DefeatDjinn = true;
         }
 
         if (Input.GetKeyDown(KeyCode.H))  // Assuming 'H' is for collecting herbs

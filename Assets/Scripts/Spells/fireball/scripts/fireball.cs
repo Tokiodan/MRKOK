@@ -1,45 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : MonoBehaviour, MagicAttack
+public class fireball : Spell
 {
-    public float speed;                    // Speed of the fireball
-    public GameObject fireballPrefab;      // Fireball prefab to spawn
-    public float spawnOffsetDistance = 2.0f; // Distance in front of the camera
-    public float cooldownDuration = 5.0f;  // Cooldown duration in seconds
+    public float speed = 20f;
+    public float fireballSpacing = 1.5f;
 
-    private bool isCooldown = false;       // Track whether the cooldown is active
-
-    public void CastSpell()
+    private void Awake()
     {
-        // sets casting cooldown.
-        PlayerController.lastSpawnTime = Time.time;
-
-        // Get the main camera
-        Camera mainCamera = Camera.main;
-
-        // Calculate the spawn position for the fireball
-        Vector3 spawnPosition = mainCamera.transform.position + mainCamera.transform.forward * spawnOffsetDistance;
-
-        // Instantiate the fireball at the calculated position with the camera's rotation
-        GameObject spawnedFireball = Instantiate(fireballPrefab, spawnPosition, mainCamera.transform.rotation);
-        // _ = StartCoroutine(FireballCooldown(spawnedFireball));
-
-        // Add velocity to the fireball to make it move forward
-        Rigidbody rb = spawnedFireball.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.velocity = mainCamera.transform.forward * speed; // Set velocity in the direction the camera is facing
-        }
-
+        spellID = "Fireball";
+        baseDamage = 20;
+        damageIncrement = 10;
     }
 
-    private IEnumerator FireballCooldown(GameObject obj)
+    public override void CastSpell(Vector3 spawnPosition, Quaternion spawnRotation)
     {
-        Debug.Log("Enum started");
-        yield return new WaitForSeconds(cooldownDuration); // Wait for the cooldown duration
-        Debug.Log("object Destroyed");
-        Destroy(obj);
+        // Calculate damage based on the current level
+        int damage = baseDamage + (damageIncrement * currentLevel);
+
+        if (currentLevel == maxLevel)
+        {
+            // Create three fireballs
+            for (int i = -1; i <= 1; i++)
+            {
+                Vector3 positionOffset = spawnRotation * new Vector3(i * fireballSpacing, 0, 0);
+                Vector3 fireballPosition = spawnPosition + positionOffset;
+                if (i == 0) fireballPosition = spawnPosition;
+
+                GameObject fireball = Instantiate(spellPrefab, fireballPosition, spawnRotation);
+                FireballCollision fireballCollision = fireball.GetComponent<FireballCollision>();
+                if (fireballCollision != null)
+                {
+                    fireballCollision.damage = damage; // Set calculated damage
+                }
+
+                Rigidbody rb = fireball.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.velocity = spawnRotation * Vector3.forward * speed;
+                }
+            }
+        }
+        else
+        {
+            // Create a single fireball for lower levels
+            GameObject fireball = Instantiate(spellPrefab, spawnPosition, spawnRotation);
+            FireballCollision fireballCollision = fireball.GetComponent<FireballCollision>();
+            if (fireballCollision != null)
+            {
+                fireballCollision.damage = damage; // Set calculated damage
+            }
+            Rigidbody rb = fireball.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = spawnRotation * Vector3.forward * speed;
+            }
+        }
     }
 }

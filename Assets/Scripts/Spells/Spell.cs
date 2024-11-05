@@ -2,26 +2,31 @@ using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
 {
-    public GameObject spellPrefab;  // Prefab for the spell
-    public float cooldownDuration;  // Duration of the cooldown
-    public float spawnOffsetDistance = 2.0f;  // Distance in front of the camera
-    public string spellID;  // Unique identifier for the spell
-    public int maxLevel = 5;  // Maximum unlock level
-    public int minPlayerLevel = 1;  // Minimum player level required to unlock this spell
-    public int currentLevel = 0;  // Current unlock level, starts at 0
+    public GameObject spellPrefab;
+    public float cooldownDuration;
+    public float spawnOffsetDistance = 2.0f;
+    public string spellID;
+    public int maxLevel = 5;
+    public int minPlayerLevel = 1;
+    public int currentLevel = 1; // Start at 1 for proper level handling
+    public int baseDamage; // Base damage defined in subclasses
+    public int damageIncrement; // Damage increment defined in subclasses
 
-    // Define level-based damage (can be customized in subclasses)
-    public virtual float GetDamage()
+    // Calculate damage based on level
+    public virtual int GetDamage()
     {
-        return 10 * currentLevel;  // Example scaling: base damage increases per level
+        return baseDamage + (currentLevel - 1) * damageIncrement; // Calculate total damage
     }
 
-    public abstract void CastSpell(Vector3 spawnPosition, Quaternion spawnRotation);  // Must be overridden
+    // Add a read-only property for damage
+    public int damage => GetDamage(); // This provides access to the calculated damage
 
-    // Method to set the current level of the spell (called when unlocked)
+    public abstract void CastSpell(Vector3 spawnPosition, Quaternion spawnRotation);
+
+    // Method to set the current level of the spell
     public void SetLevel(int level)
     {
-        currentLevel = Mathf.Clamp(level, 0, maxLevel);  // Clamp between 0 and maxLevel
+        currentLevel = Mathf.Clamp(level, 1, maxLevel); // Ensure it starts at 1
         Debug.Log($"{spellID} set to level {currentLevel}, damage: {GetDamage()}");
     }
 }
