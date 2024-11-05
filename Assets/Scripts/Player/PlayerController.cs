@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +49,7 @@ public class PlayerController : PlayerEntity
         baseMoveSpeed = defaultMoveSpeed; // Store the default speed
         MoveSpeed = baseMoveSpeed; // Initialize moveSpeed
         lastSpawnTime = -cooldownDuration; // Initialize so the player can spawn right away
+        AudioManagerSO.PlaySFXLoop("bg_02", transform.position, 0.25f);
     }
 
     new void Update()
@@ -197,6 +199,22 @@ public class PlayerController : PlayerEntity
             Vector3 limitedVel = flatVel.normalized * MoveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+
+    private void PlayerSound()
+    {
+        if (sfxAudio == null && canPlayWalkSFX && (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) > 0)
+        {
+            canPlayWalkSFX = false;
+            AudioSource a = AudioManagerSO.PlaySFXLoop("Walking", transform.position, 0.5f);
+            StartCoroutine(WaitforStop(a));
+        }
+    }
+    private IEnumerator WaitforStop(AudioSource SFX)
+    {
+        yield return new WaitUntil(() => (MathF.Abs(verticalInput) + MathF.Abs(horizontalInput)) == 0);
+        SFX.Stop();
+        canPlayWalkSFX = true;
     }
 
     private void SaveQuit()

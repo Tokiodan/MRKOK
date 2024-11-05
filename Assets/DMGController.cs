@@ -2,41 +2,31 @@ using UnityEngine;
 
 public class DMGController : MonoBehaviour
 {
-    [Header("Damage Settings")]
-    [Tooltip("Initial damage dealt by the player.")]
-    public float initialDamage = 20f;
-    public float damageIncrement = 5f;
-
-    private WeaponController weaponController; // Reference to the WeaponController
+    public float damageIncrement = 5f; // How much to increase the damage each time
+    private SwordSlash swordSlash; // Reference to the SwordSlash script
 
     private void Start()
     {
-        // Find the WeaponController component on the same GameObject
-        weaponController = GetComponent<WeaponController>();
+        // Find the SwordSlash component (adjust this as needed)
+        swordSlash = FindObjectOfType<SwordSlash>();
 
-        // Initialize PlayerDmg with initialDamage
-        if (weaponController != null)
+        if (swordSlash == null)
         {
-            weaponController.PlayerDmg = initialDamage; // Set the initial damage
-            Debug.Log("Initial player damage set to: " + weaponController.PlayerDmg);
-        }
-        else
-        {
-            Debug.LogError("WeaponController not found on this GameObject!");
+            Debug.LogError("SwordSlash script not found in the scene!");
         }
     }
 
-    // Public method to increase damage, to be called from UI Button
+    // Method called when UI button is clicked
     public void IncreaseDamage()
     {
-        if (weaponController != null)
+        if (swordSlash != null)
         {
-            weaponController.PlayerDmg += damageIncrement; // Directly increase PlayerDmg
-            Debug.Log("Player damage increased! New damage: " + weaponController.PlayerDmg);
+            swordSlash.Initialdamage += damageIncrement; // Increase sword's initial damage
+            Debug.Log("Sword damage increased! New damage: " + swordSlash.Initialdamage);
         }
         else
         {
-            Debug.LogError("WeaponController not found when trying to increase damage!");
+            Debug.LogError("SwordSlash script not found when trying to increase damage!");
         }
     }
 }

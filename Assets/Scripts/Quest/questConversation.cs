@@ -100,7 +100,7 @@ public class QuestConversation : MonoBehaviour
             // Assign a quest based on the tag of this quest giver
             if (gameObject.CompareTag("QuestGiver1"))
             {
-                currentQuest = questManager.GetQuest("Find the Lost Dog"); // Example quest for QuestGiver1
+                currentQuest = questManager.GetQuest("Defeat the evil Djinn"); // Example quest for QuestGiver1
             }
             else if (gameObject.CompareTag("QuestGiver2"))
             {

@@ -14,12 +14,20 @@ public class SkeletonAttack : MonoBehaviour
             {
                 other.GetComponent<PlayerEntity>().TakePhysicalDmg(damage);
             }
-            //  Debug.Log("Comparing...");
+
+           Debug.Log("Comparing...");
+            PlayerEntity playerScript = other.GetComponent<PlayerEntity>();
+            if (playerScript != null)
+            {
+                playerScript.TakePhysicalDmg(damage);
+            }
+
+            // Debug.Log("Comparing...");
             // PlayerController playerScript = other.GetComponent<PlayerController>();
             // if (playerScript != null)
             //  {
             //     playerScript.TakeDamage(damage);
-            //  }
+            // }
         }
     }
 }
