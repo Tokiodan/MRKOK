@@ -69,8 +69,8 @@ public class VenomPuddle : MonoBehaviour
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damage);  // Apply the correct damage
-                Debug.Log($"Damaged enemy: {enemy.name}, Remaining Health: {enemyHealth.health}, Damage: {damage}");
+                enemyHealth.ApplyDamage(damage);  // Use ApplyDamage method
+                Debug.Log($"Damaged enemy: {enemy.name}, Damage: {damage}");
             }
 
             // Wait for the next damage interval

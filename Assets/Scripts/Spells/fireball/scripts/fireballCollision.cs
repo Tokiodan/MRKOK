@@ -25,25 +25,15 @@ public class FireballCollision : MonoBehaviour
 
     private void ApplyDamage(Collider enemy)
     {
-        // First, try to get the EnemyHealth component
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage); // Apply damage
-            Debug.Log("Damaged enemy with EnemyHealth: " + enemy.gameObject.name + " for " + damage + " damage.");
+            enemyHealth.ApplyDamage(damage); // Use ApplyDamage method
+            Debug.Log("Damaged enemy: " + enemy.gameObject.name + " for " + damage + " damage.");
         }
         else
         {
-            Entity entity = enemy.GetComponent<Entity>();
-            if (entity != null)
-            {
-                entity.TakePhysicalDmg(damage);
-                Debug.Log("Damaged entity: " + enemy.gameObject.name + " for " + damage + " physical damage.");
-            }
-            else
-            {
-                Debug.Log("No valid health component found on " + enemy.gameObject.name);
-            }
+            Debug.Log("No valid health component found on " + enemy.gameObject.name);
         }
     }
 
