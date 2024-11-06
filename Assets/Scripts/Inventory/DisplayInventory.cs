@@ -12,7 +12,7 @@ using Unity.VisualScripting;
 public class DisplayInventory : MonoBehaviour
 {
 
-    public MouseItem mouseItem = new MouseItem();
+    public static MouseItem mouseItem = new MouseItem();
 
     public InventoryObject inventory;
 
@@ -47,6 +47,11 @@ public class DisplayInventory : MonoBehaviour
     //displays data of an item. (REQUIRES ITEM TO HAVE ITEMDETAILS() )
     public void DisplayDetails(Item item)
     {
+        if (detailPanel == null)
+        {
+            return;
+        }
+
         Dictionary<string, object> itemData = inventory.database.GetItem[item.Id].ItemDetails();
         itemData["name"] = item.Name;
 
@@ -65,7 +70,6 @@ public class DisplayInventory : MonoBehaviour
             // save the offset
             textMesh.ForceMeshUpdate();
             Vector2 textSize = textMesh.GetPreferredValues();
-            Debug.Log(data.Key.ToString() + "preffered Y is " + textSize.y);
             prevOffset += textSize.y + InbetweenOffset;
 
             // go next
@@ -74,6 +78,11 @@ public class DisplayInventory : MonoBehaviour
 
     public void DeleteDisplay()
     {
+        if (detailPanel == null)
+        {
+            return;
+        }
+
         // deletes all text meshes, because i'm lazy and variable size.
         foreach (Transform child in detailPanel.transform)
         {
@@ -167,9 +176,13 @@ public class DisplayInventory : MonoBehaviour
     }
     public void OnDragExit(GameObject obj)
     {
-        if (mouseItem.hoverObj)
+        if (mouseItem.hoverObj && mouseItem.hoverObj.tag == "Untagged")
         {
             inventory.MoveItem(itemsDisplayed[obj], itemsDisplayed[mouseItem.hoverObj]);
+        }
+        else if (mouseItem.hoverObj.tag == "CraftingSlot")
+        {
+            inventory.MoveItem(itemsDisplayed[obj], CraftingInterface.CraftingSlots[mouseItem.hoverObj]);
         }
         else
         {

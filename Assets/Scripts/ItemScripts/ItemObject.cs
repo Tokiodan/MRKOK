@@ -11,6 +11,7 @@ public enum ItemType
     Magic,
     Material,
     Currency,
+    Food,
     Default
 }
 public abstract class ItemObject : ScriptableObject

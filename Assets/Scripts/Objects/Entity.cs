@@ -41,7 +41,6 @@ public class Entity : MonoBehaviour
 
     protected virtual void Update()
     {
-        Debug.Log("checking..." + gameObject.name);
         if (Health <= 0)
         {
             Destroy(gameObject);

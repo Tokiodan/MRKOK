@@ -9,6 +9,7 @@ TagManager:
   - QuestGiver1
   - QuestGiver2
   - QuestGiver3
+  - CraftingSlot
   layers:
   - Default
   - TransparentFX

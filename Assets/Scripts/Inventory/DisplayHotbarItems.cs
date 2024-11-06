@@ -23,6 +23,8 @@ public class DisplayHotbarItems : MonoBehaviour
 
     private InventorySlot CurrentSelected;
     private MagicAttack spellScript;
+    private delegate void HotbarInteract();
+    private HotbarInteract Interact;
 
 
     void Start()
@@ -36,7 +38,16 @@ public class DisplayHotbarItems : MonoBehaviour
     {
         UpdateDisplay();
         SelectSlot();
-        SetAttack();
+        SetItemInteraction();
+        InteractionListener();
+    }
+
+    private void InteractionListener()
+    {
+        if (Input.GetMouseButton(0) && !CraftingMenu.isCrafting)
+        {
+            Interact?.Invoke();
+        }
     }
 
     public void SelectSlot()
@@ -64,31 +75,23 @@ public class DisplayHotbarItems : MonoBehaviour
         // 4. execute the item on click
     }
 
-    void SetAttack()
+    void SetItemInteraction()
     {
         ItemObject item = inventory.database.GetItem[CurrentSelected.item.Id];
-        if (item.type == ItemType.Magic && item is MagicObject Spell)
+        if (item.type == ItemType.Food && item is FoodObject Food)
         {
-
-            // get the prefab with the attack from the item.
-            // add it to the player
-            if (spellScript != Spell.spellprefab.GetComponent<MagicAttack>())
-            {
-                Debug.Log("setting script");
-                spellScript = Spell.spellprefab.GetComponent<MagicAttack>();
-            }
-
-            if (PlayerController.FireMagic != spellScript.CastSpell)
-            {
-                Debug.Log("attack set");
-                PlayerController.cooldownDuration = Spell.cooldown;
-                PlayerController.FireMagic = spellScript.CastSpell;
-            }
+            Interact = Food.HealPlayer;
+            Interact += UseItem;
         }
         else
         {
-            PlayerController.FireMagic = null;
+            Interact = null;
         }
+    }
+
+    private void UseItem()
+    {
+        inventory.RemoveItem(CurrentSelected.item);
     }
 
     void UpdateSelectedSlot(GameObject obj)
@@ -132,7 +135,6 @@ public class DisplayHotbarItems : MonoBehaviour
             itemCount[i] = obj;
         }
     }
-
 
     public Vector3 GetPosition(int i)
     {

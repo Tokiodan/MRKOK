@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : PlayerEntity
@@ -34,7 +35,7 @@ public class PlayerController : PlayerEntity
 
     //this is some fould shit.
     public delegate void MyDelegate();
-    public static MyDelegate FireMagic;
+    public static MyDelegate HotbarInteract;
 
     public static float cooldownDuration = 5.0f; // Cooldown time in seconds
     public static float lastSpawnTime;
@@ -62,7 +63,7 @@ public class PlayerController : PlayerEntity
 
         OpenInventory();
         SaveQuit();
-        MagicAttack();
+        // MagicAttack();
 
         base.Update();
     }
@@ -74,20 +75,6 @@ public class PlayerController : PlayerEntity
         // JumpCheck();
         GroundCheck();
     }
-
-    public void MagicAttack()
-    {
-        // check for G presss
-        if (Input.GetKeyDown(KeyCode.G) && Time.time >= lastSpawnTime + cooldownDuration)
-        {
-            //fires the current magic 
-
-            Debug.Log("Firing magic");
-            FireMagic?.Invoke();
-            // Update the last spawn time
-        }
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         var item = other.GetComponent<GroundItem>();
