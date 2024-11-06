@@ -20,12 +20,12 @@ public class WeaponController : MonoBehaviour
     private void Start()
     {
         SetSwordVisibility(false); // Hide sword initially
-        Sword.GetComponent<SwordSlash>().Initialdamage = PlayerDmg;//VERY IMPORTANTE
+        Sword.GetComponent<SwordSlash>().Initialdamage = PlayerDmg;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && CanAttack)
+        if (Input.GetMouseButtonDown(0) && CanAttack)
         {
             SwordAttack();
             CanAttack = true;
