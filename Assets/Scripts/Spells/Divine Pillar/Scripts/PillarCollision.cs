@@ -5,9 +5,7 @@ using UnityEngine;
 public class PillarCollision : MonoBehaviour
 {
     private int damageAmount; // Damage dealt by the pillar
-
-    // A set to keep track of enemies that have already taken damage
-    private HashSet<GameObject> damagedEnemies = new HashSet<GameObject>();
+    private HashSet<GameObject> damagedEnemies = new HashSet<GameObject>(); // Track damaged enemies
 
     // Set the damage amount based on the spell's level
     public void SetDamageAmount(int damage)
@@ -15,26 +13,37 @@ public class PillarCollision : MonoBehaviour
         damageAmount = damage;
     }
 
-    // This method triggers when another collider enters the AoE collider
+    // Trigger when another collider enters the AoE collider
     private void OnTriggerEnter(Collider other)
     {
         // Check if the collider belongs to an enemy (tagged as "Enemy")
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && !damagedEnemies.Contains(other.gameObject))
         {
-            // Ensure this enemy has not been damaged by this AoE yet
-            if (!damagedEnemies.Contains(other.gameObject))
+            // Try to get the EnemyHealth component
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
+                // Call the ApplyDamage method on EnemyHealth
+                enemyHealth.ApplyDamage(damageAmount);
+                Debug.Log("Damaged enemy: " + other.gameObject.name + " for " + damageAmount + " damage.");
+            }
+            else
+            {
+                // Fallback: Try to get the Entity component directly
+                Entity entity = other.GetComponent<Entity>();
+                if (entity != null)
                 {
-                    // Apply damage to the enemy
-                    enemyHealth.TakeDamage(damageAmount);
-                    Debug.Log("Damaged enemy: " + other.gameObject.name + " for " + damageAmount + " damage.");
-
-                    // Add the enemy to the HashSet to prevent further damage from this AoE
-                    damagedEnemies.Add(other.gameObject);
+                    entity.TakeMagicDmg(damageAmount); // Apply magic damage
+                    Debug.Log("Damaged entity: " + other.gameObject.name + " for " + damageAmount + " magic damage.");
+                }
+                else
+                {
+                    Debug.Log("No valid health component found on " + other.gameObject.name);
                 }
             }
+
+            // Add the enemy to the HashSet to prevent further damage from this AoE
+            damagedEnemies.Add(other.gameObject);
         }
     }
 }
