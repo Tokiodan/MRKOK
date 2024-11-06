@@ -558,6 +558,10 @@ PrefabInstance:
       propertyPath: splashCanvasGroup
       value: 
       objectReference: {fileID: 765166598}
+    - target: {fileID: 6373756094682291633, guid: d9b9864f2ff37454a84dc3a06875c448, type: 3}
+      propertyPath: rewardsCanvasGroup
+      value: 
+      objectReference: {fileID: 765166598}
     - target: {fileID: 6502031650484728753, guid: d9b9864f2ff37454a84dc3a06875c448, type: 3}
       propertyPath: m_Pivot.x
       value: 0

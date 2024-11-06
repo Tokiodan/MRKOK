@@ -47,6 +47,7 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(mouseItem.hoverObj);
         UpdateSlots();
     }
 
@@ -186,7 +187,7 @@ public class DisplayInventory : MonoBehaviour
         {
             inventory.MoveItem(itemsDisplayed[obj], itemsDisplayed[mouseItem.hoverObj]);
         }
-        else if (mouseItem.hoverObj.tag == "CraftingSlot")
+        else if (mouseItem.hoverObj && mouseItem.hoverObj.tag == "CraftingSlot")
         {
             inventory.MoveItem(itemsDisplayed[obj], CraftingInterface.CraftingSlots[mouseItem.hoverObj]);
         }

@@ -58,14 +58,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5230589bc964f6f4da1e372f2cc87bd1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -236157910171618388}
+      addedObject: {fileID: 5369988150669157686}
   m_SourcePrefab: {fileID: 100100000, guid: 5230589bc964f6f4da1e372f2cc87bd1, type: 3}
 --- !u!1 &1282099563228654301 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5230589bc964f6f4da1e372f2cc87bd1, type: 3}
   m_PrefabInstance: {fileID: 2092914969344497548}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-236157910171618388
+--- !u!114 &5369988150669157686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,6 +74,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1282099563228654301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b57f191fac7c0114f89c17017e61cc28, type: 3}
+  m_Script: {fileID: 11500000, guid: f8304ab669fb3b247902a03628452f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CraftingUI: {fileID: 1325720275112347041, guid: 38a385228643dbf47a39a2ff67fe2fed, type: 3}
+  ActiveCraftingUI: {fileID: 0}

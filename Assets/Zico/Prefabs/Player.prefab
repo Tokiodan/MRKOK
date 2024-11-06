@@ -170,6 +170,7 @@ MonoBehaviour:
   SelectPrefab: {fileID: 4380745081129511473, guid: 05ab6b094e4aac34c8cc0b66021a4e11, type: 3}
   activePrefab: {fileID: 0}
   inventory: {fileID: 11400000, guid: 882e9a3bfeba2384b8cff7faa2ae1f77, type: 2}
+  userpref: {fileID: 11400000, guid: 24f6e2fbe42bf70478d8a1cd74416954, type: 2}
 --- !u!1 &5714733284546737087
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,12 +608,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668f3861607c9c14386516abbb690313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTable: []
   Health: 100
+  dropTable: []
   Resistance: 0
   MagResistance: 0
+  experienceReward: 25
   healthBar: {fileID: 7789195174836635493}
-  maxHealth: 100
+  manaBar: {fileID: 0}
+  currentMana: 0
+  maxMana: 0
   defaultMoveSpeed: 5
   sprintSpeedMultiplier: 1.8
   crouchSpeedMultiplier: 0.6
@@ -620,8 +624,8 @@ MonoBehaviour:
   groundCheckDistance: 1.5
   orientation: {fileID: 170746544807608587}
   inventory: {fileID: 11400000, guid: 882e9a3bfeba2384b8cff7faa2ae1f77, type: 2}
-  UI_VISIBLE_CANVAS: {fileID: 0}
   sfxAudio: {fileID: 0}
+  userpref: {fileID: 11400000, guid: 24f6e2fbe42bf70478d8a1cd74416954, type: 2}
   normalScale: {x: 1, y: 1, z: 1}
   crouchScale: {x: 1, y: 0.5, z: 1}
 --- !u!1 &8966690664850235247
@@ -1074,6 +1078,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -11.900002
       objectReference: {fileID: 0}
+    - target: {fileID: 5345075031491821267, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
+      propertyPath: userpref
+      value: 
+      objectReference: {fileID: 11400000, guid: 24f6e2fbe42bf70478d8a1cd74416954, type: 2}
     - target: {fileID: 5345075031491821267, guid: 47a59f67e10ed5044921ac0b27e3e624, type: 3}
       propertyPath: TextPrefab
       value: 
