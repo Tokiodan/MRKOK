@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Save3
   m_EditorClassIdentifier: 
   Inventory: {fileID: 11400000, guid: c90ac864d4f6c7e469cb6c8cb33c75bc, type: 2}
-  playerPosition: {x: 0, y: 0, z: 0}
+  playerPosition: {x: 500, y: 25, z: 500}
   CurrentLevel: 0
   LastPlayed: 

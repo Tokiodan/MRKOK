@@ -16,16 +16,6 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 337e47c1255958443880f1954db328ea, type: 2}
   Container:
     Items:
-    - ID: 5
-      item:
-        Name: Plated Omelet
-        Id: 5
-      amount: 2
-    - ID: 7
-      item:
-        Name: Plated Bread
-        Id: 7
-      amount: 1
     - ID: -1
       item:
         Name: 
@@ -36,11 +26,21 @@ MonoBehaviour:
         Name: 
         Id: 0
       amount: 0
-    - ID: 6
+    - ID: -1
       item:
-        Name: Bread
-        Id: 6
-      amount: 2
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - ID: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
     - ID: -1
       item:
         Name: 

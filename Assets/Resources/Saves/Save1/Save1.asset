@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Save1
   m_EditorClassIdentifier: 
   Inventory: {fileID: 11400000, guid: fb436904672a5d349b9e4fd8868a43f8, type: 2}
-  playerPosition: {x: 500.00018, y: 22.186743, z: 499.99988}
+  playerPosition: {x: 508.3866, y: 21.395494, z: 512.13245}
   CurrentLevel: 0
-  LastPlayed: 11:06 06 november 2024
+  LastPlayed: 11:07 06 november 2024
