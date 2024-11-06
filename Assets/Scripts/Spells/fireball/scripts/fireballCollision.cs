@@ -18,17 +18,17 @@ public class FireballCollision : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             Debug.Log("Collided with: " + other.gameObject.name + " (Enemy)");
-            ApplyDamage(other);            
+            ApplyDamage(other);
             StartCoroutine(HandleCollisionWithEnemy(other)); // Delay destruction
         }
     }
 
     private void ApplyDamage(Collider enemy)
     {
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        EnemyEntity enemyHealth = enemy.GetComponent<EnemyEntity>();
         if (enemyHealth != null)
         {
-            enemyHealth.ApplyDamage(damage); // Use ApplyDamage method
+            enemyHealth.TakeMagicDmg(damage); // Use ApplyDamage method
             Debug.Log("Damaged enemy: " + enemy.gameObject.name + " for " + damage + " damage.");
         }
         else
@@ -46,7 +46,7 @@ public class FireballCollision : MonoBehaviour
             enemyRigidbody.AddForce(pushbackDirection * 10f, ForceMode.Impulse);
         }
 
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 }

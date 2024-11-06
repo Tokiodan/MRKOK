@@ -51,13 +51,20 @@ public class CraftingInterface : MonoBehaviour
 
     public void CraftItem()
     {
+        if (inventorySlots[0].ID < 0 && inventorySlots[1].ID < 0)
+        {
+            return;
+        }
         ItemObject Crafted = Recipies.FindRecipe(inventorySlots[0].item.Id, inventorySlots[1].item.Id);
         inventory.AddItem(new Item(Crafted), 1);
 
         // clear the inventory slots.
         inventorySlots[0].ID = -1;
+        inventorySlots[0].item = null;
+
         inventorySlots[1].ID = -1;
-        // #FIXME spams the recipe multiple times, might need to alter button interaction.
+        inventorySlots[1].item = null;
+        // #FIXME you can spam recipe.
 
     }
 

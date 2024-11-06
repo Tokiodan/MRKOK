@@ -66,10 +66,10 @@ public class VenomPuddle : MonoBehaviour
         while (enemiesInPuddle.Contains(enemy))
         {
             // Apply damage to the enemy
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            EnemyEntity enemyHealth = enemy.GetComponent<EnemyEntity>();
             if (enemyHealth != null)
             {
-                enemyHealth.ApplyDamage(damage);  // Use ApplyDamage method
+                enemyHealth.TakeMagicDmg(damage);  // Use ApplyDamage method
                 Debug.Log($"Damaged enemy: {enemy.name}, Damage: {damage}");
             }
 

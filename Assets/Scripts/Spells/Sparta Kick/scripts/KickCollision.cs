@@ -20,10 +20,10 @@ public class KickCollision : MonoBehaviour
             }
 
             // Apply damage to the enemy
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            EnemyEntity enemyHealth = other.GetComponent<EnemyEntity>();
             if (enemyHealth != null)
             {
-                enemyHealth.ApplyDamage(damageAmount);  // Use ApplyDamage method for consistency
+                enemyHealth.TakePhysicalDmg(damageAmount);  // Use ApplyDamage method for consistency
                 Debug.Log("Enemy " + other.gameObject.name + " took " + damageAmount + " damage from EnemyHealth.");
             }
             else

@@ -20,11 +20,11 @@ public class PillarCollision : MonoBehaviour
         if (other.CompareTag("Enemy") && !damagedEnemies.Contains(other.gameObject))
         {
             // Try to get the EnemyHealth component
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            EnemyEntity enemyHealth = other.GetComponent<EnemyEntity>();
             if (enemyHealth != null)
             {
                 // Call the ApplyDamage method on EnemyHealth
-                enemyHealth.ApplyDamage(damageAmount);
+                enemyHealth.TakeMagicDmg(damageAmount);
                 Debug.Log("Damaged enemy: " + other.gameObject.name + " for " + damageAmount + " damage.");
             }
             else

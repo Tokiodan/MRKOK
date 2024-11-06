@@ -411,11 +411,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8298188187643991212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f32f644a57fc11439f20de6a3efaf8b, type: 3}
+  m_Script: {fileID: 11500000, guid: e187d2269cfc17b4bbeff8a34d501403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  LifeTime: 3
 --- !u!1 &8593822844539451722
 GameObject:
   m_ObjectHideFlags: 0

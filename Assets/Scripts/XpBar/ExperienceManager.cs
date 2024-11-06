@@ -31,7 +31,7 @@ public class ExperienceManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Alpha7))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             AddExperience(5);
         }

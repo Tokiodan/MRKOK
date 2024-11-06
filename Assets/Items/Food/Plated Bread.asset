@@ -15,5 +15,5 @@ MonoBehaviour:
   Id: 7
   itemImg: {fileID: 21300000, guid: 2cafa13cb4a18384da62468c7f470b08, type: 3}
   type: 5
-  Desc: Molded... But it has a plate? Maybe some high ranking slave ate this..
+  Desc: Molded... But it has a plate? Maybe it was meant for a high ranking slave..
   healthRestore: 7
