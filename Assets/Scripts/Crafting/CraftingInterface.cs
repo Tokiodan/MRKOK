@@ -16,6 +16,11 @@ public class CraftingInterface : MonoBehaviour
     public GameObject CraftButton;
     public InventorySlot[] inventorySlots = new InventorySlot[2];
     public static Dictionary<GameObject, InventorySlot> CraftingSlots;
+    public UserPreference userpref;
+    void Awake()
+    {
+        inventory = userpref.saves[userpref.ChosenSave].Inventory;
+    }
 
     // Start is called before the first frame update
     void Start()

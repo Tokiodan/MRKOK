@@ -32,7 +32,13 @@ public class DisplayInventory : MonoBehaviour
 
     public GameObject detailPanel;
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
+    public UserPreference userpref;
 
+    void Awake()
+    {
+        Debug.Log(userpref.ChosenSave);
+        inventory = userpref.saves[userpref.ChosenSave].Inventory;
+    }
     void Start()
     {
         CreateSlots();

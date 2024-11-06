@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668eb4ffb79d1bc44a8c715c77a75ca2, type: 3}
+  m_Name: Save1
+  m_EditorClassIdentifier: 
+  Inventory: {fileID: 11400000, guid: fb436904672a5d349b9e4fd8868a43f8, type: 2}
+  playerPosition: {x: 500.00018, y: 22.186743, z: 499.99988}
+  CurrentLevel: 0
+  LastPlayed: 11:06 06 november 2024

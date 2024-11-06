@@ -26,6 +26,16 @@ public class DisplayHotbarItems : MonoBehaviour
     private delegate void HotbarInteract();
     private HotbarInteract Interact;
 
+    public UserPreference userpref;
+    void Awake()
+    {
+        inventory = userpref.saves[userpref.ChosenSave].Inventory;
+        inventory.Load();
+    }
+    void OnApplicationQuit()
+    {
+        inventory.Save();
+    }
 
     void Start()
     {
@@ -44,7 +54,7 @@ public class DisplayHotbarItems : MonoBehaviour
 
     private void InteractionListener()
     {
-        if (Input.GetMouseButton(0) && !CraftingMenu.isCrafting)
+        if (Input.GetMouseButton(0) && !CraftingMenu.isCrafting && !PlayerController.UI_VISIBLE_CANVAS.enabled)
         {
             Interact?.Invoke();
         }

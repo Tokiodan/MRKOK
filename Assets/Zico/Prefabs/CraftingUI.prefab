@@ -346,6 +346,7 @@ MonoBehaviour:
       Name: 
       Id: 0
     amount: 0
+  userpref: {fileID: 11400000, guid: 24f6e2fbe42bf70478d8a1cd74416954, type: 2}
 --- !u!1 &2135892278016611539
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +742,7 @@ MonoBehaviour:
   InbetweenOffset: 10
   Detail_Offset_X: 0
   detailPanel: {fileID: 0}
+  userpref: {fileID: 11400000, guid: 24f6e2fbe42bf70478d8a1cd74416954, type: 2}
 --- !u!1001 &3589411160472400515
 PrefabInstance:
   m_ObjectHideFlags: 0

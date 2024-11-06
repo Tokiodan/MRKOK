@@ -27,21 +27,33 @@ public class PlayerController : PlayerEntity
 
     Rigidbody rb; // Rigidbody component
     public InventoryObject inventory; // Reference to the inventory
-    public Canvas UI_VISIBLE_CANVAS; // Reference to the UI
+    public static Canvas UI_VISIBLE_CANVAS; // Reference to the UI
     [SerializeField] private AudioSource sfxAudio; // Sound effects audio source
+
+    public UserPreference userpref;
 
     public Vector3 normalScale = new Vector3(1, 1, 1); // Normal scale for the player
     public Vector3 crouchScale = new Vector3(1, 0.5f, 1); // Scale when crouching
 
     //this is some fould shit.
-    public delegate void MyDelegate();
-    public static MyDelegate HotbarInteract;
+    // public delegate void MyDelegate();
+    // public static MyDelegate HotbarInteract;
 
     public static float cooldownDuration = 5.0f; // Cooldown time in seconds
     public static float lastSpawnTime;
+    private bool isThere;
 
 
     // Start is called before the first frame update
+
+    protected override void Awake()
+    {
+        base.Awake();
+        // loads in the player inventory
+        inventory = userpref.saves[userpref.ChosenSave].Inventory;
+
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -64,7 +76,7 @@ public class PlayerController : PlayerEntity
         OpenInventory();
         SaveQuit();
         // MagicAttack();
-
+        WeirdFix();
         base.Update();
     }
 
@@ -74,6 +86,15 @@ public class PlayerController : PlayerEntity
         CrouchCheck();
         // JumpCheck();
         GroundCheck();
+    }
+
+    void WeirdFix()
+    {
+        if (transform.position != userpref.saves[userpref.ChosenSave].playerPosition && !isThere)
+        {
+            transform.position = userpref.saves[userpref.ChosenSave].playerPosition;
+            isThere = true;
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -87,7 +108,7 @@ public class PlayerController : PlayerEntity
 
     private void OnApplicationQuit()
     {
-        inventory.Container.Items = new InventorySlot[30];
+        userpref.saves[userpref.ChosenSave].playerPosition = transform.position;
     }
 
     private void OpenInventory()

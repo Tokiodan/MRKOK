@@ -15,3 +15,8 @@ MonoBehaviour:
   FOV: 70
   sensitivity: 100
   volume: 0
+  defaultSave: 0
+  saves:
+  - {fileID: 11400000, guid: e058623a7dbfea94faf0803899311c4a, type: 2}
+  - {fileID: 11400000, guid: 3cf7d71419b52d343992f95d6d5eb518, type: 2}
+  - {fileID: 11400000, guid: 54dd901bc415bb94ba6f59c07617f6b5, type: 2}
